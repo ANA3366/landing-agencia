@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexus — No prometemos likes, prometemos ventas</title>
+  <meta name="description" content="Nexus: Agencia de marketing y publicidad. No prometemos likes, prometemos ventas.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html{scroll-behavior:smooth}
+    .card{border:1px solid #e2e8f0;border-radius:1rem;background:#fff;box-shadow:0 10px 20px rgba(15,23,42,.06)}
+    .chip{display:inline-flex;align-items:center;gap:.5rem;border:1px solid #e2e8f0;background:#fff;border-radius:999px;padding:.375rem .75rem;font-size:.75rem;color:#475569;box-shadow:0 2px 6px rgba(15,23,42,.06)}
+    .reveal{opacity:0;transform:translateY(28px);transition:all .7s cubic-bezier(.2,.8,.2,1)}
+    .reveal.show{opacity:1;transform:none}
+    .float-whatsapp{position:fixed;width:60px;height:60px;bottom:20px;right:20px;background:#25D366;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 4px 6px rgba(0,0,0,.2);z-index:1000}
+    .badge-list li{display:flex;align-items:center;gap:.5rem}
+    .badge{color:#059669;display:inline-flex;align-items:center}
+    .gradient-title{background:linear-gradient(90deg,#ea580c,#b91c1c);-webkit-background-clip:text;background-clip:text;color:transparent}
+  </style>
+</head>
+<body class="bg-white text-slate-900">
+
+  <!-- NAV -->
+  <header class="sticky top-0 z-50 bg-white/70 backdrop-blur border-b border-slate-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="#home" class="flex items-center gap-2 font-bold text-xl text-orange-600">NEXUS</a>
+      <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a href="#servicios" class="hover:text-slate-600">Servicios</a>
+        <a href="#casos" class="hover:text-slate-600">Casos</a>
+        <a href="#proceso" class="hover:text-slate-600">Proceso</a>
+        <a href="#precios" class="hover:text-slate-600">Precios</a>
+        <a href="#contacto" class="hover:text-slate-600">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="home" class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-orange-50 via-white to-pink-50"></div>
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 lg:py-28 grid lg:grid-cols-2 gap-10 items-center">
+      <div class="reveal">
+        <span class="chip">✨ Agencia de publicidad 360°</span>
+        <h1 class="mt-4 text-4xl md:text-5xl font-extrabold tracking-tight">
+          Crecemos tus ventas con <span class="gradient-title">creatividad y performance</span>
+        </h1>
+        <p class="mt-4 text-slate-600 text-lg">No prometemos likes, prometemos ventas.</p>
+        <div class="mt-6 flex flex-col sm:flex-row gap-3">
+          <a href="#contacto" class="px-6 py-3 rounded-xl bg-orange-600 text-white font-medium">Quiero una propuesta →</a>
+          <a href="#casos" class="px-6 py-3 rounded-xl border border-slate-300 font-medium">Ver casos 🚀</a>
+        </div>
+        <ul class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-slate-600 badge-list">
+          <li><span class="badge">✅</span> Meta & Google Partners</li>
+          <li><span class="badge">✅</span> Creatividad con IA <strong>PRO</strong></li>
+          <li><span class="badge">✅</span> Sin contratos eternos</li>
+        </ul>
+      </div>
+      <div class="reveal relative">
+        <div class="relative card p-4">
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="card p-4"><div class="text-xl font-bold">+320%</div><div class="text-xs text-slate-500">ROAS máximo</div></div>
+            <div class="card p-4"><div class="text-xl font-bold">-43%</div><div class="text-xs text-slate-500">Costo por lead</div></div>
+            <div class="card p-4"><div class="text-xl font-bold">+2,1x</div><div class="text-xs text-slate-500">Tasa de conversión</div></div>
+            <div class="card p-4"><div class="text-xl font-bold">24/7</div><div class="text-xs text-slate-500">Monitoreo</div></div>
+          </div>
+          <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=1200&auto=format&fit=crop" alt="Chica profesional trabajando" class="rounded-2xl border border-slate-200">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
+    <div class="text-center reveal">
+      <h2 class="text-3xl md:text-4xl font-bold">Todo lo que tu marca necesita para crecer online, en un solo lugar.</h2>
+      <p class="mt-3 text-slate-600 max-w-2xl mx-auto">Combinamos anuncios pagos, creatividad con IA y analítica en tiempo real para que tus ventas no dependan de la suerte, sino de un sistema probado.</p>
+    </div>
+    <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="card p-6 reveal"><h3 class="font-semibold text-lg mb-2">📣 Ads de Performance</h3><p>Más clientes al menor costo. Meta, Google y TikTok con optimización diaria y embudos de conversión.</p></div>
+      <div class="card p-6 reveal"><h3 class="font-semibold text-lg mb-2">✨ Creatividad & IA</h3><p>Fotos y videos irresistibles sin necesidad de estudio ni modelos. UGC + IA que hacen que tu feed venda solo.</p></div>
+      <div class="card p-6 reveal"><h3 class="font-semibold text-lg mb-2">🛍️ E‑commerce & Funnels</h3><p>Desde auditorías CRO hasta email/SMS marketing y landings que convierten visitas en ventas reales.</p></div>
+      <div class="card p-6 reveal"><h3 class="font-semibold text-lg mb-2">📊 Data & Reporting</h3><p>Decisiones basadas en datos. Dashboards en vivo y métricas accionables, sin cookies ni excusas.</p></div>
+    </div>
+  </section>
+
+  <!-- CASOS -->
+  <section id="casos" class="bg-slate-50 border-y border-slate-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
+      <div class="text-center reveal">
+        <h2 class="text-3xl md:text-4xl font-bold">Resultados que hablan</h2>
+      </div>
+      <div class="mt-10 grid md:grid-cols-3 gap-6">
+        <div class="card p-6 reveal">
+          <h3 class="text-lg font-bold text-orange-600">Crecé sin techo con Ads</h3>
+          <p class="mt-2 text-slate-600">Campañas estratégicas que convierten clics en clientes reales.</p>
+          <p class="mt-2">👉 Con el contenido correcto y optimización constante, tu negocio puede crecer exponencialmente.</p>
+        </div>
+        <div class="card p-6 reveal">
+          <div class="text-sm font-semibold text-emerald-600">+250% ROAS</div>
+          <h3 class="mt-1 text-lg font-bold">IKENA – Moda femenina</h3>
+          <p class="mt-2 text-slate-600">Dejaron de gastar en modelos, sets y edición: ahora usan fotos creadas con IA. Campañas de Facebook Ads segmentadas + optimización semanal.</p>
+          <p class="mt-2">👉 Resultado: triplicaron su retorno publicitario en 30 días reduciendo drásticamente sus costos de producción.</p>
+        </div>
+        <div class="card p-6 reveal">
+          <h3 class="text-lg font-bold text-orange-600">Fotos que venden más</h3>
+          <p class="mt-2 text-slate-600">Transformamos tus imágenes en un catálogo profesional listo para anuncios.</p>
+          <p class="mt-2">👉 Una buena imagen no solo atrae, también multiplica tus conversiones. Además, creamos landing pages efectivas y optimizamos tu perfil para que cada visita tenga más chances de convertirse en cliente.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESO -->
+  <section id="proceso" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
+    <div class="text-center reveal">
+      <h2 class="text-3xl md:text-4xl font-bold">Nuestro proceso</h2>
+      <p class="mt-3 text-slate-600 max-w-2xl mx-auto">Simple, transparente y orientado a resultados desde el día uno.</p>
+    </div>
+    <ol class="mt-10 grid md:grid-cols-4 gap-6">
+      <li class="card p-6 reveal">
+        <div class="flex items-center gap-2 text-lg"><span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-orange-600 text-white font-bold">1</span> Diagnóstico</div>
+        <p class="text-slate-600 mt-3">Auditoría express de cuentas, tracking y embudo actual.</p>
+      </li>
+      <li class="card p-6 reveal">
+        <div class="flex items-center gap-2 text-lg"><span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-orange-600 text-white font-bold">2</span> Estrategia</div>
+        <p class="text-slate-600 mt-3">Hipótesis, creatividades y plan de inversión por fase.</p>
+      </li>
+      <li class="card p-6 reveal">
+        <div class="flex items-center gap-2 text-lg"><span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-orange-600 text-white font-bold">3</span> Lanzamiento</div>
+        <p class="text-slate-600 mt-3">Setup técnico, campañas y QA. Primeros aprendizajes.</p>
+      </li>
+      <li class="card p-6 reveal">
+        <div class="flex items-center gap-2 text-lg"><span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-orange-600 text-white font-bold">4</span> Escala</div>
+        <p class="text-slate-600 mt-3">Optimización semanal, nuevos ángulos y reporting claro.</p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- PRECIOS -->
+  <section id="precios" class="bg-slate-50 border-y border-slate-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
+      <div class="text-center reveal">
+        <h2 class="text-3xl md:text-4xl font-bold">Planes</h2>
+      </div>
+      <div class="mt-10 grid md:grid-cols-3 gap-6">
+        <div class="card p-6 reveal">
+          <h3 class="text-xl font-bold">🚀 Plan Lanzamiento – $100/mes</h3>
+          <p class="mt-2">👉 Ideal para marcas que recién empiezan y quieren verse profesionales sin gastar en estudios de foto.</p>
+          <ul class="text-slate-600 mt-3 space-y-2 text-sm">
+            <li>✅ Creación de imágenes profesionales con IA (20 creatividades al mes).</li>
+            <li>✅ Hasta $2k en anuncios de Facebook/Instagram.</li>
+            <li>✅ BONUS: Revisión de tu feed y asesoría con tips de mejora.</li>
+          </ul>
+        </div>
+        <div class="card p-6 ring-2 ring-orange-600 reveal">
+          <h3 class="text-xl font-bold">📈 Plan Crecimiento – $150/mes ⭐</h3>
+          <p class="mt-2">👉 Perfecto para negocios que ya venden y buscan atraer más clientes con campañas optimizadas.</p>
+          <ul class="text-slate-600 mt-3 space-y-2 text-sm">
+            <li>✅ Todo lo del Plan Lanzamiento.</li>
+            <li>✅ Creación y gestión de campañas de Facebook Ads (hasta $5k en inversión).</li>
+            <li>✅ +10 Imágenes pro con IA nuevas cada semana.</li>
+            <li>✅ Creación de reels virales semanalmente.</li>
+            <li>✅ Reporte semanal de crecimiento.</li>
+            <li>✅ Optimizaciones mensuales de tus redes sociales.</li>
+          </ul>
+        </div>
+        <div class="card p-6 reveal">
+          <h3 class="text-xl font-bold">🌐 Plan Escala – $400/mes</h3>
+          <p class="mt-2">👉 La solución premium para marcas consolidadas que quieren profesionalizar su marketing y multiplicar resultados.</p>
+          <ul class="text-slate-600 mt-3 space-y-2 text-sm">
+            <li>✅ Todo lo de los planes anteriores.</li>
+            <li>✅ Creación y optimización de campañas de Ads.</li>
+            <li>✅ Producción UGC + IA (fotos + videos cortos estilo reels).</li>
+            <li>✅ Dashboard en vivo para ver resultados 24/7.</li>
+            <li>✅ Gestión total de redes sociales y creación de contenido probado.</li>
+            <li>✅ Reunión semanal de estrategia con profesionales.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
+    <div class="grid lg:grid-cols-2 gap-12 items-start">
+      <div class="reveal">
+        <h2 class="text-3xl md:text-4xl font-bold">Contanos de tu proyecto</h2>
+        <p class="mt-3 text-slate-600">Respondemos en menos de 24 hs. También podés escribirnos por WhatsApp.</p>
+        <ul class="mt-6 space-y-3 text-slate-700">
+          <li class="flex items-center gap-2">📞 +54 9 11 0000-0000</li>
+          <li class="flex items-center gap-2">✉️ hola@tuagencia.com</li>
+          <li class="flex items-center gap-2">📍 Buenos Aires, AR</li>
+        </ul>
+      </div>
+      <div class="card p-6 reveal">
+        <form class="grid gap-4">
+          <input class="border rounded-xl px-3 py-2" placeholder="Tu nombre" />
+          <div class="grid md:grid-cols-2 gap-4">
+            <input type="email" class="border rounded-xl px-3 py-2" placeholder="Tu email" />
+            <input class="border rounded-xl px-3 py-2" placeholder="WhatsApp (+54 9 ...)" />
+          </div>
+          <select class="border rounded-xl px-3 py-2">
+            <option>Ads y performance</option>
+            <option>Creatividad / Contenido</option>
+            <option>E‑commerce / Embudos</option>
+            <option>Otro</option>
+          </select>
+          <textarea rows="4" class="border rounded-xl px-3 py-2" placeholder="Contanos objetivos, presupuesto, plazos…"></textarea>
+          <button class="px-6 py-3 rounded-xl bg-orange-600 text-white font-medium">Enviar</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="py-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="reveal rounded-3xl border border-slate-200 bg-gradient-to-r from-orange-600 to-rose-700 p-8 md:p-12 text-white text-center shadow-xl">
+        <h3 class="text-2xl md:text-3xl font-bold">¿Listos para despegar?</h3>
+        <p class="mt-2 text-white/90">Reservá una llamada de diagnóstico gratis y veamos oportunidades rápidas de mejora.</p>
+        <div class="mt-6">
+          <a href="#contacto" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white text-slate-900 font-semibold">Agendar ahora →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-200 py-10 text-sm text-slate-500 text-center">
+    <p>© <span id="year"></span> Nexus. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- BOTÓN WHATSAPP flotante -->
+  <a href="https://wa.me/5491100000000?text=Hola,%20quiero%20una%20propuesta%20con%20Nexus" class="float-whatsapp" target="_blank" aria-label="WhatsApp">💬</a>
+
+  <script>
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target);} });
+    }, {threshold: .15});
+    document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
