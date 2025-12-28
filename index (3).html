@@ -1,0 +1,829 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NEXUS | De fotos caseras a anuncios que venden</title>
+  <meta name="description" content="NEXUS: Transformamos tus fotos en creatividades profesionales, anuncios y embudos para escalar ventas." />
+  <meta name="theme-color" content="#0b0f1a" />
+
+  <!--
+    ✅ CÓMO SUBIR/USAR IMÁGENES (simple)
+    1) Crea una carpeta llamada /assets junto a este HTML
+    2) Pon tus imágenes dentro (ej: assets/step1.jpg, assets/hero.jpg, assets/ad-creative.jpg)
+    3) Cambia los src de los <img> abajo por tus rutas.
+
+    Ejemplo:
+      <img src="assets/step1.jpg" alt="..." loading="lazy" />
+  -->
+
+  <style>
+    :root{
+      /* Paleta más vibrante (inspirada en tu logo naranja + contraste) */
+      --bg:#070A12;
+      --panel:#0B1020;
+      --text:#F3F4F6;
+      --muted:rgba(243,244,246,.72);
+      --line:rgba(255,255,255,.10);
+
+      --brand1:#FF6A00;  /* naranja vivo */
+      --brand2:#FFB000;  /* ámbar */
+      --brand3:#7C3AED;  /* violeta para contraste */
+      --ok:#22c55e;
+
+      --shadow: 0 18px 55px rgba(0,0,0,.45);
+      --radius: 18px;
+      --max: 1120px;
+      --pad: clamp(18px, 4vw, 34px);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 700px at 20% 0%, rgba(255,106,0,.22), transparent 55%),
+        radial-gradient(900px 600px at 90% 10%, rgba(124,58,237,.16), transparent 60%),
+        radial-gradient(900px 600px at 70% 90%, rgba(255,176,0,.10), transparent 55%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.45;
+      overflow-x:hidden;
+    }
+    a{color:inherit}
+    img{max-width:100%; display:block}
+
+    .wrap{max-width:var(--max); margin:0 auto; padding: 0 var(--pad);}
+
+    /* Nav */
+    .nav{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(7,10,18,.55);
+      border-bottom:1px solid var(--line);
+    }
+    .nav-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 14px var(--pad);
+      max-width:var(--max); margin:0 auto;
+      gap:14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:900; letter-spacing:.08em;
+    }
+    .logo{
+      width:34px; height:34px; border-radius:10px;
+      background: linear-gradient(135deg, var(--brand1), var(--brand2));
+      box-shadow: 0 14px 35px rgba(255,106,0,.18);
+    }
+    .brand small{
+      display:block;
+      font-weight:700;
+      letter-spacing:0;
+      color:var(--muted);
+      margin-top:2px;
+      font-size:12px;
+    }
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 12px 16px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      text-decoration:none;
+      font-weight:800;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease, filter .12s ease;
+      cursor:pointer;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.085); border-color: rgba(255,255,255,.22);}
+    .btn.primary{
+      border-color: rgba(255,106,0,.55);
+      background: linear-gradient(135deg, rgba(255,106,0,.98), rgba(255,176,0,.95));
+      box-shadow: 0 16px 45px rgba(255,106,0,.20);
+      color:#1a120a;
+      filter:saturate(1.1);
+    }
+    .btn.primary:hover{filter:saturate(1.25) brightness(1.02);}
+
+    /* Hero */
+    .hero{padding: clamp(40px, 7vw, 84px) 0 28px;}
+    .grid-hero{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: clamp(16px, 4vw, 34px);
+      align-items:center;
+    }
+    @media (max-width: 900px){ .grid-hero{grid-template-columns:1fr;} }
+
+    .kicker{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 12px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      border-radius: 999px;
+      color: var(--muted);
+      font-weight:700;
+      font-size: 13px;
+      width:fit-content;
+    }
+    .dot{
+      width:8px; height:8px; border-radius:50%;
+      background: var(--ok);
+      box-shadow: 0 0 0 6px rgba(34,197,94,.14);
+    }
+    h1{
+      margin: 14px 0 10px;
+      font-size: clamp(34px, 4.8vw, 58px);
+      line-height:1.05;
+      letter-spacing:-.02em;
+    }
+    .sub{
+      color: rgba(243,244,246,.86);
+      font-size: clamp(16px, 1.6vw, 18px);
+      margin: 0 0 16px;
+      max-width: 58ch;
+    }
+    .bullets{display:flex; flex-wrap:wrap; gap:10px; margin: 14px 0 20px;}
+    .pill{
+      padding: 10px 12px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      font-weight:800;
+      font-size: 14px;
+      color: rgba(243,244,246,.92);
+    }
+    .hero-cta{display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-top: 10px;}
+    .micro{color: var(--muted); font-size: 13px;}
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    /* Hero mock: ahora con imagen real */
+    .mock{position:relative; padding: 16px;}
+    .mock-top{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px; padding: 12px 12px 8px;
+    }
+    .mock-title{
+      display:flex; align-items:center; gap:10px;
+      font-weight:900; letter-spacing:-.01em;
+    }
+    .tag{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: rgba(243,244,246,.88);
+      font-weight:900;
+      font-size: 12px;
+      white-space:nowrap;
+    }
+    .mock-media{
+      margin: 10px 12px 12px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      overflow:hidden;
+      background: rgba(255,255,255,.05);
+      position:relative;
+    }
+    .mock-media img{
+      width:100%;
+      height: 250px;
+      object-fit: cover;
+      opacity:.98;
+    }
+    .mock-badge{
+      position:absolute; left:14px; top:14px;
+      padding: 8px 10px; border-radius:999px;
+      background: rgba(7,10,18,.65);
+      border:1px solid rgba(255,255,255,.14);
+      font-weight:900; font-size: 12px;
+    }
+    .stats{
+      display:grid; grid-template-columns: repeat(3, 1fr);
+      gap:10px; padding: 0 12px 14px;
+    }
+    .mini{
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      padding: 12px;
+    }
+    .mini .big{font-weight:1000; font-size: 18px; letter-spacing:-.02em;}
+    .mini .lab{color: var(--muted); font-size: 12px; margin-top: 4px;}
+
+    /* Sections */
+    .section{padding: 30px 0;}
+    .section h2{margin: 0 0 10px; font-size: clamp(22px, 2.7vw, 34px); letter-spacing:-.02em;}
+    .lead{color: rgba(243,244,246,.82); margin: 0 0 16px; max-width: 70ch;}
+
+    .two{display:grid; grid-template-columns: 1fr 1fr; gap: clamp(12px, 3vw, 22px);}
+    @media (max-width: 900px){ .two{grid-template-columns:1fr;} }
+
+    .list{margin:0; padding:0; list-style:none; display:grid; gap:12px;}
+    .li{
+      display:flex; gap:10px; align-items:flex-start;
+      padding: 14px 14px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+    }
+    .icon{
+      width: 28px; height: 28px; border-radius:10px;
+      background: rgba(255,106,0,.18);
+      border:1px solid rgba(255,106,0,.28);
+      display:flex; align-items:center; justify-content:center;
+      flex:none;
+    }
+    .icon svg{width:16px; height:16px; fill: rgba(243,244,246,.92)}
+    .li b{display:block; margin-bottom:4px;}
+    .muted{color: var(--muted);}
+
+    /* Steps with images */
+    .steps{
+      display:grid; grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 1050px){ .steps{grid-template-columns: 1fr 1fr;} }
+    @media (max-width: 560px){ .steps{grid-template-columns: 1fr;} }
+
+    .step{
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      overflow:hidden;
+      position:relative;
+    }
+    .step .media{
+      height: 120px;
+      background: rgba(255,255,255,.06);
+      border-bottom:1px solid rgba(255,255,255,.10);
+    }
+    .step .media img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+    }
+    .step .content{padding: 14px 14px 16px;}
+    .step .n{
+      width: 34px; height: 34px;
+      display:flex; align-items:center; justify-content:center;
+      border-radius: 12px;
+      background: rgba(255,176,0,.14);
+      border:1px solid rgba(255,176,0,.28);
+      font-weight:1000;
+      margin-bottom: 10px;
+      color: rgba(255,255,255,.95);
+    }
+    .anchor{
+      margin-top: 14px;
+      font-weight:1000;
+      font-size: clamp(17px, 1.8vw, 20px);
+      letter-spacing:-.02em;
+    }
+
+    /* Services */
+    .services{display:grid; grid-template-columns: repeat(4, 1fr); gap: 12px;}
+    @media (max-width: 1000px){ .services{grid-template-columns: 1fr 1fr;} }
+    @media (max-width: 560px){ .services{grid-template-columns: 1fr;} }
+    .svc{
+      padding: 16px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      min-height: 170px;
+    }
+    .svc .top{display:flex; align-items:center; gap:10px; margin-bottom: 8px; font-weight:1000;}
+    .svc .emoji{
+      width: 38px; height: 38px; border-radius: 14px;
+      display:flex; align-items:center; justify-content:center;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      font-size: 18px;
+    }
+    .svc ul{margin: 10px 0 0; padding-left: 18px; color: rgba(243,244,246,.84);}
+    .svc li{margin: 6px 0;}
+
+    /* Image strip to reduce text (more visual) */
+    .strip{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:12px;
+      align-items:stretch;
+    }
+    @media (max-width: 900px){ .strip{grid-template-columns:1fr;} }
+    .strip .imgbox{
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      overflow:hidden;
+      min-height: 260px;
+      position:relative;
+    }
+    .strip .imgbox img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    .strip .imgbox .overlay{
+      position:absolute; inset:auto 14px 14px 14px;
+      background: rgba(7,10,18,.62);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: 14px;
+      padding: 12px;
+      font-weight:900;
+    }
+
+    /* CTA banner */
+    .banner{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px; padding: 18px;
+    }
+    @media (max-width: 700px){ .banner{flex-direction:column; align-items:flex-start;} }
+    .strong{font-weight:1000; font-size: clamp(18px, 2vw, 22px); letter-spacing:-.02em; margin-top: 10px;}
+
+    /* Boxes */
+    .split{display:grid; grid-template-columns: 1fr 1fr; gap: 12px;}
+    @media (max-width: 900px){ .split{grid-template-columns:1fr;} }
+    .box{
+      padding: 16px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+    }
+    .box h4{margin:0 0 8px;}
+    .chipline{
+      display:flex; flex-wrap:wrap; gap:10px; margin-top: 10px;
+    }
+
+    /* Form */
+    form{display:grid; gap:12px; margin-top: 12px;}
+    .in{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.22);
+      color: var(--text);
+      outline:none;
+    }
+    .in:focus{border-color: rgba(255,106,0,.55); box-shadow: 0 0 0 6px rgba(255,106,0,.18);}
+    textarea.in{min-height: 110px; resize: vertical;}
+    .fine{font-size: 12px; color: var(--muted);}
+
+    details{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      border-radius: 16px;
+      padding: 14px;
+    }
+    summary{cursor:pointer; font-weight:1000;}
+    details p{margin: 10px 0 0; color: rgba(243,244,246,.84);}
+
+    footer{
+      padding: 26px 0 40px;
+      border-top:1px solid var(--line);
+      color: var(--muted);
+    }
+    .foot{
+      display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;
+      align-items:center;
+    }
+    .foot a{color: var(--muted); text-decoration:none}
+    .foot a:hover{color: var(--text)}
+    .sr{position:absolute; left:-9999px;}
+
+    /* Animaciones (suaves) */
+    .reveal{
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity .55s ease, transform .55s ease;
+      will-change: opacity, transform;
+    }
+    .reveal.is-visible{opacity: 1; transform: translateY(0);}
+    @media (prefers-reduced-motion: reduce){
+      .reveal{opacity:1; transform:none; transition:none;}
+      html{scroll-behavior:auto}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAV -->
+  <div class="nav">
+    <div class="nav-inner">
+      <div class="brand" aria-label="NEXUS">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          NEXUS
+          <small>No prometemos likes, prometemos ventas.</small>
+        </div>
+      </div>
+      <div class="nav-cta">
+        <a class="btn primary" href="#cta">👉 Quiero mi análisis gratuito</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="wrap grid-hero">
+      <div class="reveal">
+        <div class="kicker"><span class="dot" aria-hidden="true"></span> Creatividades + embudo + Facebook Ads (todo junto)</div>
+        <h1>De fotos caseras a anuncios que venden.</h1>
+        <p class="sub">Tus fotos entran. Un sistema de creatividades y performance sale.</p>
+
+        <div class="bullets" aria-label="Beneficios clave">
+          <span class="pill">Sin sesiones de fotos</span>
+          <span class="pill">Sin modelos reales</span>
+          <span class="pill">Listo para escalar en Facebook Ads</span>
+        </div>
+
+        <div class="hero-cta">
+          <a class="btn primary" href="#cta">👉 Quiero vender más con mis productos</a>
+          <span class="micro">CTA única · Diseño para escaneo</span>
+        </div>
+      </div>
+
+      <!-- ✅ IMAGEN EN EL HERO -->
+      <div class="card mock reveal" aria-label="Creativo listo para Ads">
+        <div class="mock-top">
+          <div class="mock-title">Preview de creativo</div>
+          <span class="tag">Creativo listo para Ads</span>
+        </div>
+
+        <div class="mock-media">
+          <!-- Reemplazá este src por tu imagen real -->
+          <img src="assets/ad-creative.jpg" alt="Ejemplo de creativo para anuncios" loading="lazy" />
+          <div class="mock-badge">Antes → Después → Anuncio</div>
+        </div>
+
+        <!-- ✅ NÚMEROS (como objetivos típicos, NO garantía) -->
+        <div class="stats" aria-label="Indicadores típicos">
+          <div class="mini">
+            <div class="big">+30% CTR</div>
+            <div class="lab">por mejores creatividades</div>
+          </div>
+          <div class="mini">
+            <div class="big">-25% CPA</div>
+            <div class="lab">con test A/B continuo</div>
+          </div>
+          <div class="mini">
+            <div class="big">+50% fact.</div>
+            <div class="lab">objetivo mensual al escalar</div>
+          </div>
+        </div>
+        <div class="fine" style="padding:0 12px 14px;">
+          *Valores de referencia/objetivos típicos. Resultados reales dependen de producto, oferta, tracking y presupuesto.
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- PROBLEMA -->
+  <section class="section" id="problema">
+    <div class="wrap two">
+      <div class="reveal">
+        <h2>Tu producto es bueno, pero no está vendiendo como debería.</h2>
+        <p class="lead">Normal: si las creatividades no detienen el scroll, el algoritmo no te ayuda y el cliente no confía.</p>
+        <div class="chipline">
+          <span class="pill">Fotos que no destacan</span>
+          <span class="pill">Ads que no convierten</span>
+          <span class="pill">Gasto sin claridad</span>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <ul class="list" aria-label="Dolores típicos">
+          <li class="li">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 5v6l5 3-1 1-6-4V7h2z"/></svg>
+            </div>
+            <div><b>Fotos caseras que no destacan</b><div class="muted">No transmiten valor.</div></div>
+          </li>
+          <li class="li">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16v4H4V4zm0 6h10v10H4V10zm12 0h4v10h-4V10z"/></svg>
+            </div>
+            <div><b>Contenido que no convierte</b><div class="muted">Falta estructura de anuncio.</div></div>
+          </li>
+          <li class="li">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M3 3h2v18H3V3zm16 0h2v18h-2V3zM7 17l4-4 3 3 5-6 2 2-7 8-3-3-3 3-1-3z"/></svg>
+            </div>
+            <div><b>Campañas que gastan sin resultados</b><div class="muted">Sin testeo, no hay escala.</div></div>
+          </li>
+        </ul>
+        <div class="strong">No es tu producto. Es cómo lo estás mostrando.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STRIP VISUAL (más imágenes, menos texto) -->
+  <section class="section">
+    <div class="wrap strip">
+      <div class="imgbox reveal" aria-label="Muestra de creatividades">
+        <img src="assets/creative-grid.jpg" alt="Mosaico de creatividades para anuncios" loading="lazy" />
+        <div class="overlay">Más variaciones → más aprendizaje → más ventas.</div>
+      </div>
+      <div class="box reveal">
+        <h2>Lo visual se convierte en ventas cuando tiene estrategia.</h2>
+        <p class="lead">Diseñamos creatividades para personas y algoritmos: estructura, ritmo, prueba social y llamada a la acción.</p>
+        <a class="btn primary" href="#cta">👉 Quiero mi análisis gratuito</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUCIÓN -->
+  <section class="section" id="solucion">
+    <div class="wrap reveal">
+      <h2>Una solución visual completa para e-commerce</h2>
+      <p class="lead">5 pasos simples. Cada paso con su imagen.</p>
+
+      <div class="steps" aria-label="Pasos del proceso">
+        <div class="step reveal">
+          <div class="media">
+            <img src="assets/step1.jpg" alt="Paso 1: Envío de fotos" loading="lazy" />
+          </div>
+          <div class="content">
+            <div class="n">1</div>
+            <b>Nos enviás tus fotos</b>
+            <div class="muted">Celular = perfecto.</div>
+          </div>
+        </div>
+
+        <div class="step reveal">
+          <div class="media">
+            <img src="assets/step2.jpg" alt="Paso 2: Modelos digitales" loading="lazy" />
+          </div>
+          <div class="content">
+            <div class="n">2</div>
+            <b>Modelos digitales</b>
+            <div class="muted">Variantes para testeo.</div>
+          </div>
+        </div>
+
+        <div class="step reveal">
+          <div class="media">
+            <img src="assets/step3.jpg" alt="Paso 3: Imágenes y videos listos" loading="lazy" />
+          </div>
+          <div class="content">
+            <div class="n">3</div>
+            <b>Creatividades listas</b>
+            <div class="muted">Reels / Ads / Stories.</div>
+          </div>
+        </div>
+
+        <div class="step reveal">
+          <div class="media">
+            <img src="assets/step4.jpg" alt="Paso 4: Embudo de ventas" loading="lazy" />
+          </div>
+          <div class="content">
+            <div class="n">4</div>
+            <b>Embudo de ventas</b>
+            <div class="muted">Atracción→confianza→compra.</div>
+          </div>
+        </div>
+
+        <div class="step reveal">
+          <div class="media">
+            <img src="assets/step5.jpg" alt="Paso 5: Lanzamiento y optimización" loading="lazy" />
+          </div>
+          <div class="content">
+            <div class="n">5</div>
+            <b>Ads + optimización</b>
+            <div class="muted">Test A/B + escalado.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="anchor">Tú enviás fotos. Nosotros construimos ventas.</div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section class="section" id="servicios">
+    <div class="wrap reveal">
+      <h2>Qué incluye el sistema NEXUS</h2>
+      <p class="lead">Todo en un solo lugar.</p>
+
+      <div class="services" aria-label="Servicios">
+        <div class="svc reveal">
+          <div class="top"><div class="emoji">📸</div>Imágenes</div>
+          <ul>
+            <li>Modelos digitales</li>
+            <li>Estilo coherente</li>
+            <li>Variaciones por producto</li>
+          </ul>
+        </div>
+        <div class="svc reveal">
+          <div class="top"><div class="emoji">🎥</div>Videos</div>
+          <ul>
+            <li>Reels / Ads / Stories</li>
+            <li>Dinámicos</li>
+            <li>Para conversión</li>
+          </ul>
+        </div>
+        <div class="svc reveal">
+          <div class="top"><div class="emoji">📊</div>Embudo</div>
+          <ul>
+            <li>Mensajes por etapa</li>
+            <li>Confianza</li>
+            <li>Compra</li>
+          </ul>
+        </div>
+        <div class="svc reveal">
+          <div class="top"><div class="emoji">📢</div>Facebook Ads</div>
+          <ul>
+            <li>Creatividades optimizadas</li>
+            <li>Test A/B</li>
+            <li>Escalado</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIFERENCIADOR -->
+  <section class="section" id="diferenciador">
+    <div class="wrap reveal">
+      <div class="card banner">
+        <div>
+          <h2>No somos solo diseño. Somos performance.</h2>
+          <p class="lead">Reducimos costos de producción y aceleramos el lanzamiento con un sistema replicable.</p>
+          <div class="strong">Lo visual sin estrategia es decoración.</div>
+        </div>
+        <a class="btn primary" href="#cta">👉 Quiero mi análisis gratuito</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARA QUIÉN -->
+  <section class="section" id="fit">
+    <div class="wrap two">
+      <div class="box reveal">
+        <h2>Ideal para</h2>
+        <ul>
+          <li>Tiendas online de ropa</li>
+          <li>Marcas que quieren escalar Ads</li>
+          <li>Negocios sin estudio fotográfico</li>
+        </ul>
+      </div>
+      <div class="box reveal">
+        <h2>No es para</h2>
+        <ul>
+          <li>Quien busca solo “diseño bonito”</li>
+          <li>Quien no quiere invertir en crecimiento</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="section" id="cta">
+    <div class="wrap">
+      <div class="card" style="padding:18px;">
+        <div class="reveal">
+          <h2>¿Listo para convertir tus fotos en ventas?</h2>
+          <p class="lead">Contanos sobre tu marca y te decimos si este sistema es para vos.</p>
+        </div>
+
+        <form id="leadForm" aria-label="Formulario de análisis gratuito" class="reveal">
+          <label class="sr" for="nombre">Nombre</label>
+          <input class="in" id="nombre" name="nombre" placeholder="Tu nombre" autocomplete="name" required />
+
+          <label class="sr" for="marca">Marca / Tienda</label>
+          <input class="in" id="marca" name="marca" placeholder="Nombre de tu marca / tienda" required />
+
+          <label class="sr" for="whatsapp">WhatsApp</label>
+          <input class="in" id="whatsapp" name="whatsapp" placeholder="WhatsApp (con código de país)" autocomplete="tel" required />
+
+          <label class="sr" for="mensaje">Mensaje</label>
+          <textarea class="in" id="mensaje" name="mensaje" placeholder="¿Qué vendés y qué objetivo tenés con Ads?"></textarea>
+
+          <button class="btn primary" type="submit">👉 Quiero mi análisis gratuito</button>
+          <div class="fine">Tip: configurá abajo el número de WhatsApp para que el formulario lo abra automáticamente.</div>
+          <div id="formMsg" class="fine" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="wrap reveal">
+      <h2>Preguntas rápidas</h2>
+      <div class="two">
+        <details class="reveal">
+          <summary>¿Necesito fotos profesionales?</summary>
+          <p>No. Trabajamos a partir de tus fotos actuales.</p>
+        </details>
+        <details class="reveal">
+          <summary>¿Cuánto tarda el proceso?</summary>
+          <p>Rápido y escalable (depende de cantidad de productos).</p>
+        </details>
+        <details class="reveal">
+          <summary>¿Trabajan solo con ropa?</summary>
+          <p>Sí. Especialistas en moda.</p>
+        </details>
+        <details class="reveal">
+          <summary>¿Incluye anuncios?</summary>
+          <p>Sí. De principio a fin: creatividades, embudo, test y optimización.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap foot">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="logo" aria-hidden="true" style="width:28px;height:28px;border-radius:10px;"></div>
+        <div><b style="color:var(--text);">NEXUS</b><div class="muted" style="font-size:12px;">No prometemos likes, prometemos ventas.</div></div>
+      </div>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;">
+        <a href="#cta">Contacto</a>
+        <a href="#faq">FAQ</a>
+        <a href="#" onclick="alert('Agregá aquí tu URL de política de privacidad.'); return false;">Política de privacidad</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ✅ Animaciones al hacer scroll (IntersectionObserver)
+    (function(){
+      const els = document.querySelectorAll('.reveal');
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){
+            e.target.classList.add('is-visible');
+            io.unobserve(e.target);
+          }
+        });
+      }, {threshold: 0.12});
+      els.forEach(el=>io.observe(el));
+    })();
+
+    // ✅ Formulario: abre WhatsApp con el texto (reemplazá el número).
+    (function(){
+      const form = document.getElementById('leadForm');
+      const msg  = document.getElementById('formMsg');
+
+      // 🔧 CONFIGURACIÓN
+      const WHATSAPP_NUMBER = ""; // Ej: "5491122334455" (sin + ni espacios). Si queda vacío, copia al portapapeles.
+      const FALLBACK_EMAIL  = ""; // Ej: "hola@tumarca.com" (opcional)
+
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        const data = new FormData(form);
+        const nombre = (data.get('nombre') || '').toString().trim();
+        const marca = (data.get('marca') || '').toString().trim();
+        const whatsapp = (data.get('whatsapp') || '').toString().trim();
+        const mensaje = (data.get('mensaje') || '').toString().trim();
+
+        const text =
+`Hola, quiero mi análisis gratuito con NEXUS.
+Nombre: ${nombre}
+Marca: ${marca}
+WhatsApp: ${whatsapp}
+Mensaje: ${mensaje || '-'}
+`;
+
+        if(WHATSAPP_NUMBER){
+          const url = "https://wa.me/" + encodeURIComponent(WHATSAPP_NUMBER) + "?text=" + encodeURIComponent(text);
+          window.open(url, "_blank", "noopener,noreferrer");
+          msg.textContent = "Listo: abrimos WhatsApp para enviarlo.";
+          return;
+        }
+
+        if(FALLBACK_EMAIL){
+          const subject = encodeURIComponent("Nuevo lead - Análisis gratuito NEXUS");
+          const body = encodeURIComponent(text);
+          window.location.href = `mailto:${FALLBACK_EMAIL}?subject=${subject}&body=${body}`;
+          msg.textContent = "Listo: abrimos tu email para enviarlo.";
+          return;
+        }
+
+        try{
+          navigator.clipboard.writeText(text);
+          msg.textContent = "Copiado al portapapeles. Pegalo en WhatsApp o en tu CRM.";
+        }catch(err){
+          msg.textContent = "Formulario listo. Configurá WHATSAPP_NUMBER o FALLBACK_EMAIL en el código para enviar.";
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
