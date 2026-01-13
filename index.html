@@ -3,827 +3,1369 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>NEXUS | De fotos caseras a anuncios que venden</title>
-  <meta name="description" content="NEXUS: Transformamos tus fotos en creatividades profesionales, anuncios y embudos para escalar ventas." />
-  <meta name="theme-color" content="#0b0f1a" />
+  <meta name="theme-color" content="#07070A" />
+  <title>NEXUS — No es diseño. Es un sistema.</title>
+  <meta name="description" content="NEXUS: Creatividad IA + Facebook Ads + Embudos. Transformamos fotos caseras en anuncios que venden. Pedí tu análisis y asesoría gratuita." />
 
-  <!--
-    ✅ CÓMO SUBIR/USAR IMÁGENES (simple)
-    1) Crea una carpeta llamada /assets junto a este HTML
-    2) Pon tus imágenes dentro (ej: assets/step1.png, assets/hero.png, assets/ad-creative.png)
-    3) Cambia los src de los <img> abajo por tus rutas.
-
-    Ejemplo:
-      <img src="assets/step1.png" alt="..." loading="lazy" />
-  -->
+  <!-- Open Graph -->
+  <meta property="og:title" content="NEXUS — No es diseño. Es un sistema." />
+  <meta property="og:description" content="Transformamos fotos caseras en anuncios que venden, con creatividades, embudos y Facebook Ads optimizados." />
+  <meta property="og:type" content="website" />
 
   <style>
     :root{
-      /* Paleta más vibrante (inspirada en tu logo naranja + contraste) */
-      --bg:#070A12;
-      --panel:#0B1020;
-      --text:#F3F4F6;
-      --muted:rgba(243,244,246,.72);
-      --line:rgba(255,255,255,.10);
-
-      --brand1:#FF6A00;  /* naranja vivo */
-      --brand2:#FFB000;  /* ámbar */
-      --brand3:#7C3AED;  /* violeta para contraste */
-      --ok:#22c55e;
-
-      --shadow: 0 18px 55px rgba(0,0,0,.45);
+      --bg:#07070A;
+      --panel:#0F1117;
+      --panel2:#0B0D12;
+      --text:#F5F7FF;
+      --muted:#A9B0C3;
+      --orange:#FF4D00;
+      --pink:#FF2D7A;
+      --violet:#7C3AED;
+      --ring: rgba(255,77,0,.35);
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
       --radius: 18px;
+      --radius2: 26px;
       --max: 1120px;
-      --pad: clamp(18px, 4vw, 34px);
+      --ease: cubic-bezier(.2,.8,.2,1);
     }
 
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
+    html,body{height:100%}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background:
-        radial-gradient(1200px 700px at 20% 0%, rgba(255,106,0,.22), transparent 55%),
-        radial-gradient(900px 600px at 90% 10%, rgba(124,58,237,.16), transparent 60%),
-        radial-gradient(900px 600px at 70% 90%, rgba(255,176,0,.10), transparent 55%),
-        var(--bg);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
       color:var(--text);
-      line-height:1.45;
+      background: var(--bg);
       overflow-x:hidden;
     }
-    a{color:inherit}
-    img{max-width:100%; display:block}
 
-    .wrap{max-width:var(--max); margin:0 auto; padding: 0 var(--pad);}
+    /* ---- Background FX ---- */
+    .bgfx{
+      position:fixed; inset:0; z-index:-2;
+      background:
+        radial-gradient(900px 520px at 20% 10%, rgba(255,77,0,.22), transparent 55%),
+        radial-gradient(680px 460px at 86% 18%, rgba(124,58,237,.18), transparent 55%),
+        radial-gradient(780px 520px at 55% 85%, rgba(255,45,122,.14), transparent 55%),
+        linear-gradient(180deg, #07070A 0%, #06060A 55%, #07070A 100%);
+    }
+    .glow-orb{
+      position:fixed; z-index:-1; pointer-events:none;
+      width:520px; height:520px; border-radius:999px;
+      left:-180px; top:-200px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,77,0,.55), rgba(255,45,122,.15) 40%, rgba(124,58,237,.05) 65%, transparent 70%);
+      filter: blur(18px);
+      opacity:.75;
+      animation: drift 16s var(--ease) infinite alternate;
+    }
+    .glow-orb.orb2{
+      width:560px; height:560px;
+      right:-220px; left:auto; top:180px;
+      background: radial-gradient(circle at 35% 25%, rgba(124,58,237,.45), rgba(255,45,122,.15) 45%, rgba(255,77,0,.08) 70%, transparent 72%);
+      opacity:.55;
+      animation-duration: 18s;
+    }
+    .glow-orb.orb3{
+      width:640px; height:640px;
+      left:20%; top:auto; bottom:-360px;
+      background: radial-gradient(circle at 40% 40%, rgba(255,45,122,.30), rgba(255,77,0,.18) 40%, rgba(124,58,237,.08) 70%, transparent 72%);
+      opacity:.35;
+      animation-duration: 20s;
+    }
 
-    /* Nav */
-    .nav{
-      position:sticky; top:0; z-index:50;
+    @keyframes drift{
+      0%{ transform: translate3d(0,0,0) scale(1); }
+      100%{ transform: translate3d(60px,40px,0) scale(1.05); }
+    }
+
+    /* Lightweight particles (CSS only) */
+    .particles{
+      position:fixed; inset:0; z-index:-1; pointer-events:none;
+      opacity:.45;
+      background-image:
+        radial-gradient(rgba(255,77,0,.18) 1px, transparent 1px),
+        radial-gradient(rgba(255,45,122,.14) 1px, transparent 1px),
+        radial-gradient(rgba(124,58,237,.10) 1px, transparent 1px);
+      background-size: 120px 120px, 180px 180px, 240px 240px;
+      background-position: 0 0, 40px 60px, 100px 120px;
+      animation: particlesMove 26s linear infinite;
+      mask-image: radial-gradient(closest-side, rgba(0,0,0,.9), transparent);
+      -webkit-mask-image: radial-gradient(closest-side, rgba(0,0,0,.9), transparent);
+    }
+    @keyframes particlesMove{
+      0%{ transform: translate3d(0,0,0); }
+      100%{ transform: translate3d(-140px, -180px, 0); }
+    }
+
+    /* ---- Layout ---- */
+    .container{ width:min(var(--max), 100% - 40px); margin:0 auto; }
+    .section{ padding: 72px 0; }
+    .section.compact{ padding: 54px 0; }
+    .stack{ display:flex; flex-direction:column; gap:18px; }
+
+    /* ---- Header ---- */
+    .header{
+      position:sticky; top:0; z-index:40;
       backdrop-filter: blur(10px);
-      background: rgba(7,10,18,.55);
-      border-bottom:1px solid var(--line);
+      -webkit-backdrop-filter: blur(10px);
+      background: rgba(7,7,10,.35);
+      border-bottom: 1px solid rgba(255,255,255,.06);
     }
-    .nav-inner{
+    .header-inner{
+      height:64px;
       display:flex; align-items:center; justify-content:space-between;
-      padding: 14px var(--pad);
-      max-width:var(--max); margin:0 auto;
-      gap:14px;
-    }
-    .brand{
-      display:flex; align-items:center; gap:10px;
-      font-weight:900; letter-spacing:.08em;
+      gap:12px;
     }
     .logo{
-      width:34px; height:34px; border-radius:10px;
-      background: linear-gradient(135deg, var(--brand1), var(--brand2));
-      box-shadow: 0 14px 35px rgba(255,106,0,.18);
+      display:flex; align-items:center; gap:10px;
+      font-weight: 800;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      font-size:14px;
     }
-    .brand small{
-      display:block;
-      font-weight:700;
-      letter-spacing:0;
-      color:var(--muted);
-      margin-top:2px;
-      font-size:12px;
+    .logo-badge{
+      width:28px; height:28px; border-radius:10px;
+      background: linear-gradient(135deg, var(--orange), var(--pink), var(--violet));
+      box-shadow: 0 0 0 6px rgba(255,77,0,.08), 0 16px 40px rgba(0,0,0,.45);
+    }
+
+    .nav{
+      display:flex; align-items:center; gap:10px;
     }
 
     .btn{
+      appearance:none; border:0; cursor:pointer;
       display:inline-flex; align-items:center; justify-content:center;
-      padding: 12px 16px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.14);
+      gap:10px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-weight: 700;
+      color: var(--text);
       background: rgba(255,255,255,.06);
-      color:var(--text);
+      border: 1px solid rgba(255,255,255,.10);
+      transition: transform .18s var(--ease), box-shadow .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease);
       text-decoration:none;
-      font-weight:800;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease, filter .12s ease;
-      cursor:pointer;
       user-select:none;
-      white-space:nowrap;
+      -webkit-tap-highlight-color: transparent;
     }
-    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.085); border-color: rgba(255,255,255,.22);}
+    .btn:active{ transform: translateY(1px) scale(.99); }
     .btn.primary{
-      border-color: rgba(255,106,0,.55);
-      background: linear-gradient(135deg, rgba(255,106,0,.98), rgba(255,176,0,.95));
-      box-shadow: 0 16px 45px rgba(255,106,0,.20);
-      color:#1a120a;
-      filter:saturate(1.1);
+      background: linear-gradient(135deg, rgba(255,77,0,1), rgba(255,45,122,.98) 55%, rgba(124,58,237,.85));
+      border-color: rgba(255,77,0,.35);
+      box-shadow: 0 18px 55px rgba(255,77,0,.18), 0 0 0 8px rgba(255,77,0,.08);
     }
-    .btn.primary:hover{filter:saturate(1.25) brightness(1.02);}
+    .btn.primary:hover{ box-shadow: 0 22px 70px rgba(255,77,0,.22), 0 0 0 10px rgba(255,77,0,.10); }
+    .btn.ghost{
+      background: transparent;
+      border-color: rgba(255,255,255,.14);
+    }
+    .btn.small{ padding: 10px 12px; border-radius: 12px; font-size: 13px; }
+    .btn.icon{ padding: 10px 12px; border-radius: 12px; }
 
-    /* Hero */
-    .hero{padding: clamp(40px, 7vw, 84px) 0 28px;}
-    .grid-hero{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: clamp(16px, 4vw, 34px);
-      align-items:center;
-    }
-    @media (max-width: 900px){ .grid-hero{grid-template-columns:1fr;} }
+    /* ---- Typography ---- */
+    h1,h2,h3{ margin:0; line-height:1.04; letter-spacing:-.02em; }
+    h1{ font-size: clamp(38px, 9vw, 64px); font-weight: 900; }
+    h2{ font-size: clamp(26px, 6.8vw, 40px); font-weight: 900; }
+    h3{ font-size: 18px; font-weight: 800; letter-spacing:-.01em; }
+    p{ margin:0; color: var(--muted); line-height:1.6; font-size: 16px; }
 
     .kicker{
-      display:inline-flex; align-items:center; gap:8px;
+      display:inline-flex; align-items:center; gap:10px;
       padding: 8px 12px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.04);
       border-radius: 999px;
-      color: var(--muted);
-      font-weight:700;
-      font-size: 13px;
-      width:fit-content;
-    }
-    .dot{
-      width:8px; height:8px; border-radius:50%;
-      background: var(--ok);
-      box-shadow: 0 0 0 6px rgba(34,197,94,.14);
-    }
-    h1{
-      margin: 14px 0 10px;
-      font-size: clamp(34px, 4.8vw, 58px);
-      line-height:1.05;
-      letter-spacing:-.02em;
-    }
-    .sub{
-      color: rgba(243,244,246,.86);
-      font-size: clamp(16px, 1.6vw, 18px);
-      margin: 0 0 16px;
-      max-width: 58ch;
-    }
-    .bullets{display:flex; flex-wrap:wrap; gap:10px; margin: 14px 0 20px;}
-    .pill{
-      padding: 10px 12px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.05);
-      font-weight:800;
-      font-size: 14px;
-      color: rgba(243,244,246,.92);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 13px;
+      width: fit-content;
     }
-    .hero-cta{display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-top: 10px;}
-    .micro{color: var(--muted); font-size: 13px;}
+    .kdot{
+      width:8px; height:8px; border-radius:999px;
+      background: linear-gradient(135deg, var(--orange), var(--pink), var(--violet));
+      box-shadow: 0 0 0 6px rgba(255,77,0,.08);
+    }
+    .gradient-text{
+      background: linear-gradient(90deg, var(--orange), var(--pink), var(--violet));
+      -webkit-background-clip:text; background-clip:text;
+      color: transparent;
+    }
 
+    .muted{ color: var(--muted); }
+    .tiny{ font-size: 12px; color: rgba(245,247,255,.75); }
+
+    /* ---- Cards ---- */
+    .grid{ display:grid; gap:14px; }
     .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(15,17,23,.92), rgba(11,13,18,.92));
+      border: 1px solid rgba(255,255,255,.10);
       border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .card::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: linear-gradient(135deg, rgba(255,77,0,.35), rgba(255,45,122,.18), rgba(124,58,237,.22));
+      opacity:.0;
+      filter: blur(14px);
+      transition: opacity .2s var(--ease);
+      pointer-events:none;
+    }
+    .card:hover::before{ opacity:.6; }
+
+    .card .icon{
+      width:42px; height:42px; border-radius: 14px;
+      display:grid; place-items:center;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+      margin-bottom: 12px;
+    }
+    .card .icon svg{ width:20px; height:20px; }
+
+    .divider{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(255,77,0,.35), rgba(255,45,122,.28), rgba(124,58,237,.22), transparent);
+      margin: 12px 0;
+      opacity:.75;
+    }
+
+    /* ---- Hero ---- */
+    .hero{ padding: 36px 0 48px; }
+    .hero-grid{
+      display:grid;
+      gap: 22px;
+      align-items: start;
+    }
+    .hero-actions{
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    .bullets{
+      display:grid; gap:8px; margin-top: 10px;
+    }
+    .bullet{
+      display:flex; align-items:flex-start; gap:10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .check{
+      width:18px; height:18px; border-radius: 6px;
+      background: rgba(255,77,0,.20);
+      border: 1px solid rgba(255,77,0,.35);
+      margin-top: 2px;
+      display:grid; place-items:center;
+      flex: 0 0 auto;
+      box-shadow: 0 0 0 8px rgba(255,77,0,.06);
+    }
+    .check svg{ width:12px; height:12px; }
+
+    /* Pipeline visual */
+    .pipeline{
+      border-radius: var(--radius2);
+      border: 1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(15,17,23,.78), rgba(11,13,18,.85));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .pipeline-top{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 14px 14px 10px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      gap:10px;
+    }
+    .chips{ display:flex; gap:8px; flex-wrap:wrap; }
+    .chip{
+      font-size: 12px;
+      color: rgba(245,247,255,.85);
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+    }
+    .chip.grad{
+      border-color: rgba(255,77,0,.35);
+      background: linear-gradient(135deg, rgba(255,77,0,.14), rgba(255,45,122,.08), rgba(124,58,237,.08));
+    }
+
+    .pipeline-body{
+      padding: 14px;
+      display:grid; gap:12px;
+    }
+    .step{
+      display:grid;
+      grid-template-columns: 44px 1fr;
+      gap:12px;
+      align-items:center;
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+      position:relative;
+      overflow:hidden;
+    }
+    .step::after{
+      content:"";
+      position:absolute; inset:-2px;
+      background: linear-gradient(90deg, rgba(255,77,0,.0), rgba(255,77,0,.16), rgba(255,45,122,.10), rgba(124,58,237,.08), rgba(255,77,0,.0));
+      opacity:0;
+      transform: translateX(-25%);
+      transition: opacity .35s var(--ease);
+      pointer-events:none;
+    }
+    .step.active::after{
+      opacity:.9;
+      animation: sweep 1.8s var(--ease) infinite;
+    }
+    @keyframes sweep{
+      0%{ transform: translateX(-40%); }
+      100%{ transform: translateX(40%); }
+    }
+
+    .thumb{
+      width:44px; height:44px; border-radius: 14px;
+      background: linear-gradient(135deg, rgba(255,77,0,.18), rgba(255,45,122,.10), rgba(124,58,237,.12));
+      border: 1px solid rgba(255,255,255,.10);
+      display:grid; place-items:center;
+      box-shadow: 0 0 0 8px rgba(255,77,0,.05);
+      position:relative;
+    }
+    .thumb svg{ width:20px; height:20px; opacity:.95; }
+    .step h3{ font-size: 15px; margin-bottom: 2px; }
+    .step p{ font-size: 13px; color: rgba(245,247,255,.70); }
+
+    /* ---- Before/After ---- */
+    .ba{
+      border-radius: var(--radius2);
+      border: 1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(15,17,23,.78), rgba(11,13,18,.88));
+      overflow:hidden;
+      box-shadow: var(--shadow);
+    }
+    .ba-head{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      padding: 14px 14px 10px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .ba-stage{
+      position:relative;
+      height: 280px;
+      background:
+        radial-gradient(600px 300px at 30% 30%, rgba(255,77,0,.16), transparent 60%),
+        radial-gradient(520px 300px at 70% 70%, rgba(124,58,237,.12), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
+    }
+    .ba-pane{
+      position:absolute; inset:0;
+      display:grid; place-items:center;
+      padding: 18px;
+      text-align:center;
+    }
+    .ba-pane .mock{
+      width: min(420px, 92%);
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.28);
+      padding: 16px;
+      box-shadow: 0 18px 60px rgba(0,0,0,.5);
+    }
+    .mock .tag{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      margin-bottom: 10px;
+    }
+    .mock .big{
+      font-weight: 900;
+      font-size: 18px;
+      margin: 2px 0 6px;
+    }
+    .mock .small{
+      font-size: 13px;
+      color: rgba(245,247,255,.78);
+      line-height:1.45;
+    }
+
+    .ba-after{
+      clip-path: inset(0 50% 0 0);
+      transition: clip-path .05s linear;
+    }
+
+    .ba-handle{
+      position:absolute; top:0; bottom:0;
+      left:50%;
+      width: 2px;
+      background: linear-gradient(180deg, transparent, rgba(255,77,0,.75), rgba(255,45,122,.55), transparent);
+      box-shadow: 0 0 0 8px rgba(255,77,0,.10);
+      transform: translateX(-1px);
+    }
+    .ba-knob{
+      position:absolute; left:50%; top:50%;
+      transform: translate(-50%, -50%);
+      width: 46px; height: 46px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(15,17,23,.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display:grid; place-items:center;
+      box-shadow: 0 20px 60px rgba(0,0,0,.6), 0 0 0 10px rgba(255,77,0,.10);
+      cursor: grab;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .ba-knob:active{ cursor: grabbing; }
+    .ba-knob svg{ width:18px; height:18px; opacity:.9; }
+
+    .ba-controls{
+      display:flex; gap:10px; flex-wrap:wrap;
+      padding: 12px 14px 14px;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+
+    
+    /* ---- Before/After (improved) ---- */
+    .ba-stage{
+      position:relative;
+      overflow:hidden;
+      height: 280px;
+      background: #0B0D12;
+      --pct: 50%;
+      touch-action: pan-y;
+    }
+    .ba-img{
+      position:absolute; inset:0;
+      width:100%; height:100%;
+      object-fit: cover;
+      object-position: center 20%;
+      transform: none;
+    }
+    .ba-layer{
+      position:absolute; inset:0;
+    }
+    .ba-after{
+      clip-path: inset(0 0 0 var(--pct));
+      transition: clip-path .03s linear;
+    }
+    .ba-handle{
+      left: var(--pct);
+    }
+    .ba-knob{
+      left: var(--pct);
+      touch-action: none;
+    }
+    .ba-caption{
+      position:absolute; left:0; right:0; bottom:0;
+      padding: 14px 14px 12px;
+      background: linear-gradient(180deg, rgba(7,7,10,0), rgba(7,7,10,.72) 45%, rgba(7,7,10,.86));
+      display:flex; align-items:flex-end; justify-content:space-between; gap:10px;
+      pointer-events:none;
+    }
+    .cap-pill{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: rgba(245,247,255,.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      white-space:nowrap;
+    }
+    .cap-pill.grad{
+      border-color: rgba(255,77,0,.35);
+      background: linear-gradient(135deg, rgba(255,77,0,.16), rgba(255,45,122,.08), rgba(124,58,237,.10));
+    }
+
+
+    
+    /* ---- Before/After (premium fit: show full image + blurred fill) ---- */
+    .ba-stage{
+      height: 340px;
+    }
+    @media (min-width: 860px){
+      .ba-stage{ height: 440px; }
+    }
+    .ba-layer{
+      position:absolute; inset:0;
+      overflow:hidden;
+      background: #0B0D12;
+    }
+    .ba-bg{
+      position:absolute; inset:-20px;
+      width: calc(100% + 40px);
+      height: calc(100% + 40px);
+      object-fit: cover;
+      filter: blur(18px);
+      opacity: .32;
+      transform: scale(1.12);
+    }
+    .ba-img{
+      position:absolute; inset:0;
+      width:100%; height:100%;
+      object-fit: contain;
+      object-position: center center;
+      transform: none;
+      filter: none;
+    }
+
+
+    /* ---- Funnel ---- */
+    .funnel{
+      border-radius: var(--radius2);
+      border: 1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(15,17,23,.78), rgba(11,13,18,.90));
       box-shadow: var(--shadow);
       overflow:hidden;
     }
-
-    /* Hero mock: ahora con imagen real */
-    .mock{position:relative; padding: 16px;}
-    .mock-top{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:10px; padding: 12px 12px 8px;
-    }
-    .mock-title{
-      display:flex; align-items:center; gap:10px;
-      font-weight:900; letter-spacing:-.01em;
-    }
-    .tag{
-      display:inline-flex; align-items:center; gap:8px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      color: rgba(243,244,246,.88);
-      font-weight:900;
-      font-size: 12px;
-      white-space:nowrap;
-    }
-    .mock-media{
-      margin: 10px 12px 12px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.12);
-      overflow:hidden;
-      background: rgba(255,255,255,.05);
-      position:relative;
-    }
-    .mock-media img{
-      width:100%;
-      height: 250px;
-      object-fit: cover;
-      opacity:.98;
-    }
-    .mock-badge{
-      position:absolute; left:14px; top:14px;
-      padding: 8px 10px; border-radius:999px;
-      background: rgba(7,10,18,.65);
-      border:1px solid rgba(255,255,255,.14);
-      font-weight:900; font-size: 12px;
-    }
-    .stats{
-      display:grid; grid-template-columns: repeat(3, 1fr);
-      gap:10px; padding: 0 12px 14px;
-    }
-    .mini{
-      border-radius: 14px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      padding: 12px;
-    }
-    .mini .big{font-weight:1000; font-size: 18px; letter-spacing:-.02em;}
-    .mini .lab{color: var(--muted); font-size: 12px; margin-top: 4px;}
-
-    /* Sections */
-    .section{padding: 30px 0;}
-    .section h2{margin: 0 0 10px; font-size: clamp(22px, 2.7vw, 34px); letter-spacing:-.02em;}
-    .lead{color: rgba(243,244,246,.82); margin: 0 0 16px; max-width: 70ch;}
-
-    .two{display:grid; grid-template-columns: 1fr 1fr; gap: clamp(12px, 3vw, 22px);}
-    @media (max-width: 900px){ .two{grid-template-columns:1fr;} }
-
-    .list{margin:0; padding:0; list-style:none; display:grid; gap:12px;}
-    .li{
-      display:flex; gap:10px; align-items:flex-start;
-      padding: 14px 14px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-    }
-    .icon{
-      width: 28px; height: 28px; border-radius:10px;
-      background: rgba(255,106,0,.18);
-      border:1px solid rgba(255,106,0,.28);
-      display:flex; align-items:center; justify-content:center;
-      flex:none;
-    }
-    .icon svg{width:16px; height:16px; fill: rgba(243,244,246,.92)}
-    .li b{display:block; margin-bottom:4px;}
-    .muted{color: var(--muted);}
-
-    /* Steps with images */
-    .steps{
-      display:grid; grid-template-columns: repeat(5, 1fr);
-      gap: 12px;
-    }
-    @media (max-width: 1050px){ .steps{grid-template-columns: 1fr 1fr;} }
-    @media (max-width: 560px){ .steps{grid-template-columns: 1fr;} }
-
-    .step{
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      overflow:hidden;
-      position:relative;
-    }
-    .step .media{
-      height: 120px;
-      background: rgba(255,255,255,.06);
-      border-bottom:1px solid rgba(255,255,255,.10);
-    }
-    .step .media img{
-      width:100%;
-      height:100%;
-      object-fit: cover;
-    }
-    .step .content{padding: 14px 14px 16px;}
-    .step .n{
-      width: 34px; height: 34px;
-      display:flex; align-items:center; justify-content:center;
-      border-radius: 12px;
-      background: rgba(255,176,0,.14);
-      border:1px solid rgba(255,176,0,.28);
-      font-weight:1000;
-      margin-bottom: 10px;
-      color: rgba(255,255,255,.95);
-    }
-    .anchor{
-      margin-top: 14px;
-      font-weight:1000;
-      font-size: clamp(17px, 1.8vw, 20px);
-      letter-spacing:-.02em;
-    }
-
-    /* Services */
-    .services{display:grid; grid-template-columns: repeat(4, 1fr); gap: 12px;}
-    @media (max-width: 1000px){ .services{grid-template-columns: 1fr 1fr;} }
-    @media (max-width: 560px){ .services{grid-template-columns: 1fr;} }
-    .svc{
-      padding: 16px;
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      min-height: 170px;
-    }
-    .svc .top{display:flex; align-items:center; gap:10px; margin-bottom: 8px; font-weight:1000;}
-    .svc .emoji{
-      width: 38px; height: 38px; border-radius: 14px;
-      display:flex; align-items:center; justify-content:center;
-      background: rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.10);
-      font-size: 18px;
-    }
-    .svc ul{margin: 10px 0 0; padding-left: 18px; color: rgba(243,244,246,.84);}
-    .svc li{margin: 6px 0;}
-
-    /* Image strip to reduce text (more visual) */
-    .strip{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:12px;
-      align-items:stretch;
-    }
-    @media (max-width: 900px){ .strip{grid-template-columns:1fr;} }
-    .strip .imgbox{
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      overflow:hidden;
-      min-height: 260px;
-      position:relative;
-    }
-    .strip .imgbox img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-    }
-    .strip .imgbox .overlay{
-      position:absolute; inset:auto 14px 14px 14px;
-      background: rgba(7,10,18,.62);
-      border:1px solid rgba(255,255,255,.12);
-      border-radius: 14px;
-      padding: 12px;
-      font-weight:900;
-    }
-
-    /* CTA banner */
-    .banner{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:16px; padding: 18px;
-    }
-    @media (max-width: 700px){ .banner{flex-direction:column; align-items:flex-start;} }
-    .strong{font-weight:1000; font-size: clamp(18px, 2vw, 22px); letter-spacing:-.02em; margin-top: 10px;}
-
-    /* Boxes */
-    .split{display:grid; grid-template-columns: 1fr 1fr; gap: 12px;}
-    @media (max-width: 900px){ .split{grid-template-columns:1fr;} }
-    .box{
-      padding: 16px;
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-    }
-    .box h4{margin:0 0 8px;}
-    .chipline{
-      display:flex; flex-wrap:wrap; gap:10px; margin-top: 10px;
-    }
-
-    /* Form */
-    form{display:grid; gap:12px; margin-top: 12px;}
-    .in{
-      width:100%;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.22);
-      color: var(--text);
-      outline:none;
-    }
-    .in:focus{border-color: rgba(255,106,0,.55); box-shadow: 0 0 0 6px rgba(255,106,0,.18);}
-    textarea.in{min-height: 110px; resize: vertical;}
-    .fine{font-size: 12px; color: var(--muted);}
-
-    details{
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      border-radius: 16px;
+    .funnel-row{
+      display:grid; gap:10px;
       padding: 14px;
     }
-    summary{cursor:pointer; font-weight:1000;}
-    details p{margin: 10px 0 0; color: rgba(243,244,246,.84);}
-
-    footer{
-      padding: 26px 0 40px;
-      border-top:1px solid var(--line);
-      color: var(--muted);
+    .flow{
+      display:grid; gap:10px;
     }
-    .foot{
-      display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;
+    .flow-step{
+      display:flex; gap:12px;
+      align-items:flex-start;
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+      position:relative;
+    }
+    .flow-step .num{
+      width:32px; height:32px;
+      border-radius: 12px;
+      background: rgba(255,77,0,.14);
+      border: 1px solid rgba(255,77,0,.35);
+      display:grid; place-items:center;
+      font-weight: 900;
+      box-shadow: 0 0 0 10px rgba(255,77,0,.06);
+      flex: 0 0 auto;
+    }
+    .flow-step h3{ font-size: 16px; }
+    .flow-step p{ font-size: 13px; color: rgba(245,247,255,.72); }
+    .flow-line{
+      height: 54px;
+      width: 2px;
+      margin-left: 16px;
+      background: linear-gradient(180deg, rgba(255,77,0,.0), rgba(255,77,0,.55), rgba(124,58,237,.22), rgba(255,77,0,.0));
+      opacity:.8;
+      filter: drop-shadow(0 0 18px rgba(255,77,0,.22));
+    }
+
+    /* ---- Differentiator ---- */
+    .banner{
+      border-radius: var(--radius2);
+      border: 1px solid rgba(255,255,255,.10);
+      background:
+        radial-gradient(900px 320px at 30% 10%, rgba(255,77,0,.22), transparent 60%),
+        radial-gradient(820px 320px at 80% 60%, rgba(124,58,237,.16), transparent 60%),
+        linear-gradient(180deg, rgba(15,17,23,.82), rgba(11,13,18,.92));
+      box-shadow: var(--shadow);
+      padding: 18px;
+      position:relative;
+      overflow:hidden;
+    }
+    .banner::after{
+      content:"";
+      position:absolute; inset:-2px;
+      background: linear-gradient(135deg, rgba(255,77,0,.45), rgba(255,45,122,.18), rgba(124,58,237,.22));
+      filter: blur(18px);
+      opacity:.18;
+      pointer-events:none;
+    }
+
+    /* ---- Form ---- */
+    form{ display:grid; gap:10px; margin-top: 6px; }
+    .field{
+      display:grid; gap:6px;
+    }
+    label{ font-size: 12px; color: rgba(245,247,255,.82); font-weight: 700; }
+    input, select, textarea{
+      width:100%;
+      padding: 14px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      outline: none;
+      font-size: 15px;
+      transition: border-color .18s var(--ease), box-shadow .18s var(--ease), background .18s var(--ease);
+    }
+    textarea{ min-height: 96px; resize: vertical; }
+    input:focus, select:focus, textarea:focus{
+      border-color: rgba(255,77,0,.55);
+      box-shadow: 0 0 0 10px rgba(255,77,0,.10);
+      background: rgba(255,255,255,.05);
+    }
+
+    .form-row{ display:grid; gap:10px; }
+    .note{
+      font-size: 12px;
+      color: rgba(245,247,255,.72);
+    }
+
+    
+    /* ---- Header / Logo ---- */
+    .site-header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(7,7,10,.75);
+      backdrop-filter: blur(8px);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .header-inner{
+      display:flex;
       align-items:center;
+      height:64px;
     }
-    .foot a{color: var(--muted); text-decoration:none}
-    .foot a:hover{color: var(--text)}
-    .sr{position:absolute; left:-9999px;}
+    .logo{
+      height:32px;
+      width:auto;
+      display:block;
+    }
 
-    /* Animaciones (suaves) */
+
+    /* ---- Reveal animations ---- */
     .reveal{
-      opacity: 0;
-      transform: translateY(14px);
-      transition: opacity .55s ease, transform .55s ease;
-      will-change: opacity, transform;
+      opacity:0;
+      transform: translateY(12px);
+      filter: blur(8px);
+      transition: opacity .65s var(--ease), transform .65s var(--ease), filter .65s var(--ease);
+      will-change: opacity, transform, filter;
     }
-    .reveal.is-visible{opacity: 1; transform: translateY(0);}
+    .reveal.in{
+      opacity:1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+    .stagger > *{ transition-delay: 0ms; }
+    .stagger.in > *{ opacity:1; transform: none; filter:none; }
+    .stagger > *{
+      opacity:0;
+      transform: translateY(10px);
+      filter: blur(8px);
+      transition: opacity .65s var(--ease), transform .65s var(--ease), filter .65s var(--ease);
+    }
+    .stagger.in > *:nth-child(1){ transition-delay: 40ms; }
+    .stagger.in > *:nth-child(2){ transition-delay: 120ms; }
+    .stagger.in > *:nth-child(3){ transition-delay: 200ms; }
+    .stagger.in > *:nth-child(4){ transition-delay: 280ms; }
+
+    /* ---- Sticky Mobile CTA ---- */
+    .sticky-cta{
+      position:fixed; left:0; right:0; bottom:0;
+      z-index: 50;
+      padding: 10px 12px;
+      background: rgba(7,7,10,.55);
+      border-top: 1px solid rgba(255,255,255,.08);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display:flex; gap:10px;
+    }
+    .sticky-cta a{ flex:1; }
+    .sticky-cta .btn{ width:100%; justify-content:center; }
+
+    /* Hide sticky on larger screens */
+    @media (min-width: 860px){
+      .hero-grid{ grid-template-columns: 1.05fr .95fr; align-items:center; }
+      .grid.cols3{ grid-template-columns: repeat(3, 1fr); }
+      .grid.cols2{ grid-template-columns: repeat(2, 1fr); }
+      .section{ padding: 92px 0; }
+      .hero{ padding: 68px 0 60px; }
+      .ba-stage{ height: 340px; }
+      .sticky-cta{ display:none; }
+      .header-inner{ height:72px; }
+      .btn.small{ font-size: 14px; padding: 11px 14px; }
+    }
+
+    /* Respect reduced motion */
     @media (prefers-reduced-motion: reduce){
-      .reveal{opacity:1; transform:none; transition:none;}
-      html{scroll-behavior:auto}
+      *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
     }
+
+    /* Anchors offset for sticky header */
+    [id]{ scroll-margin-top: 84px; }
   </style>
 </head>
 
 <body>
-  <!-- NAV -->
-  <div class="nav">
-    <div class="nav-inner">
-      <div class="brand" aria-label="NEXUS">
-        <div class="logo" aria-hidden="true"></div>
-        <div>
-          NEXUS
-          <small>No prometemos likes, prometemos ventas.</small>
-        </div>
-      </div>
-      <div class="nav-cta">
-        <a class="btn primary" href="#cta">👉 Quiero mi análisis gratuito</a>
-      </div>
-    </div>
-  </div>
+  <div class="bgfx" aria-hidden="true"></div>
+  <div class="glow-orb" aria-hidden="true"></div>
+  <div class="glow-orb orb2" aria-hidden="true"></div>
+  <div class="glow-orb orb3" aria-hidden="true"></div>
+  <div class="particles" aria-hidden="true"></div>
 
-  <!-- HERO -->
-  <header class="hero">
-    <div class="wrap grid-hero">
-      <div class="reveal">
-        <div class="kicker"><span class="dot" aria-hidden="true"></span> Creatividades + embudo + Facebook Ads (todo junto)</div>
-        <h1>De fotos caseras a anuncios que venden.</h1>
-        <p class="sub">Tus fotos entran. Un sistema de creatividades y performance sale.</p>
-
-        <div class="bullets" aria-label="Beneficios clave">
-          <span class="pill">Sin sesiones de fotos</span>
-          <span class="pill">Sin modelos reales</span>
-          <span class="pill">Listo para escalar en Facebook Ads</span>
-        </div>
-
-        <div class="hero-cta">
-          <a class="btn primary" href="#cta">👉 Quiero vender más con mis productos</a>
-          <span class="micro">CTA única · Diseño para escaneo</span>
-        </div>
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <div class="logo" aria-label="NEXUS">
+        <span class="logo-badge" aria-hidden="true"></span>
+        <span>NEXUS</span>
       </div>
 
-      <!-- ✅ IMAGEN EN EL HERO -->
-      <div class="card mock reveal" aria-label="Creativo listo para Ads">
-        <div class="mock-top">
-          <div class="mock-title">Preview de creativo</div>
-          <span class="tag">Creativo listo para Ads</span>
-        </div>
-
-        <div class="mock-media">
-          <!-- Reemplazá este src por tu imagen real -->
-          <img src="assets/ad-creative.png" alt="Ejemplo de creativo para anuncios" loading="lazy" />
-          <div class="mock-badge">Antes → Después → Anuncio</div>
-        </div>
-
-        <!-- ✅ NÚMEROS (como objetivos típicos, NO garantía) -->
-        <div class="stats" aria-label="Indicadores típicos">
-          <div class="mini">
-            <div class="big">+30% CTR</div>
-            <div class="lab">por mejores creatividades</div>
-          </div>
-          <div class="mini">
-            <div class="big">-25% CPA</div>
-            <div class="lab">con test A/B continuo</div>
-          </div>
-          <div class="mini">
-            <div class="big">+50% fact.</div>
-            <div class="lab">objetivo mensual al escalar</div>
-          </div>
-        </div>
-        <div class="fine" style="padding:0 12px 14px;">
-          *Valores de referencia/objetivos típicos. Resultados reales dependen de producto, oferta, tracking y presupuesto.
-        </div>
-      </div>
+      <nav class="nav" aria-label="Navegación">
+        <a class="btn small ghost" href="#analisis">Análisis</a>
+        <a class="btn small ghost" href="#ia">IA</a>
+        <a class="btn small ghost" href="#embudo">Embudo</a>
+        <a class="btn small" href="https://wa.me/" target="_blank" rel="noopener">WhatsApp</a>
+      </nav>
     </div>
   </header>
 
-  <!-- PROBLEMA -->
-  <section class="section" id="problema">
-    <div class="wrap two">
-      <div class="reveal">
-        <h2>Tu producto es bueno, pero no está vendiendo como debería.</h2>
-        <p class="lead">Normal: si las creatividades no detienen el scroll, el algoritmo no te ayuda y el cliente no confía.</p>
-        <div class="chipline">
-          <span class="pill">Fotos que no destacan</span>
-          <span class="pill">Ads que no convierten</span>
-          <span class="pill">Gasto sin claridad</span>
-        </div>
-      </div>
+  <!-- Hero -->
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="stack reveal">
+          <div class="kicker"><span class="kdot" aria-hidden="true"></span>Creatividad + Ads + Embudos. Un solo sistema.</div>
 
-      <div class="reveal">
-        <ul class="list" aria-label="Dolores típicos">
-          <li class="li">
-            <div class="icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 5v6l5 3-1 1-6-4V7h2z"/></svg>
+          <h1>No es diseño.<br><span class="gradient-text">Es un sistema.</span></h1>
+
+          <p style="font-size:17px;">
+            Transformamos <strong style="color:var(--text);">fotos caseras</strong> en <strong style="color:var(--text);">anuncios que venden</strong>,
+            combinando creatividades con IA, embudos de conversión y Facebook Ads optimizados para performance.
+          </p>
+
+          <div class="bullets">
+            <div class="bullet">
+              <div class="check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <div style="font-weight:800;">Creativos IA listos para test A/B</div>
+                <div class="tiny">Variaciones de hooks, ángulos y formatos en días, no semanas.</div>
+              </div>
             </div>
-            <div><b>Fotos caseras que no destacan</b><div class="muted">No transmiten valor.</div></div>
-          </li>
-          <li class="li">
-            <div class="icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M4 4h16v4H4V4zm0 6h10v10H4V10zm12 0h4v10h-4V10z"/></svg>
+            <div class="bullet">
+              <div class="check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <div style="font-weight:800;">Facebook Ads optimizados para escalar</div>
+                <div class="tiny">Estructura, presupuesto y optimización continua.</div>
+              </div>
             </div>
-            <div><b>Contenido que no convierte</b><div class="muted">Falta estructura de anuncio.</div></div>
-          </li>
-          <li class="li">
-            <div class="icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M3 3h2v18H3V3zm16 0h2v18h-2V3zM7 17l4-4 3 3 5-6 2 2-7 8-3-3-3 3-1-3z"/></svg>
+            <div class="bullet">
+              <div class="check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <div style="font-weight:800;">Embudos diseñados para convertir</div>
+                <div class="tiny">Landing + copy + CRO para que el click termine en venta.</div>
+              </div>
             </div>
-            <div><b>Campañas que gastan sin resultados</b><div class="muted">Sin testeo, no hay escala.</div></div>
-          </li>
-        </ul>
-        <div class="strong">No es tu producto. Es cómo lo estás mostrando.</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- STRIP VISUAL (más imágenes, menos texto) -->
-  <section class="section">
-    <div class="wrap strip">
-      <div class="imgbox reveal" aria-label="Muestra de creatividades">
-        <img src="assets/creative-grid.png" alt="Mosaico de creatividades para anuncios" loading="lazy" />
-        <div class="overlay">Más variaciones → más aprendizaje → más ventas.</div>
-      </div>
-      <div class="box reveal">
-        <h2>Lo visual se convierte en ventas cuando tiene estrategia.</h2>
-        <p class="lead">Diseñamos creatividades para personas y algoritmos: estructura, ritmo, prueba social y llamada a la acción.</p>
-        <a class="btn primary" href="#cta">👉 Quiero mi análisis gratuito</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- SOLUCIÓN -->
-  <section class="section" id="solucion">
-    <div class="wrap reveal">
-      <h2>Una solución visual completa para e-commerce</h2>
-      <p class="lead">5 pasos simples. Cada paso con su imagen.</p>
-
-      <div class="steps" aria-label="Pasos del proceso">
-        <div class="step reveal">
-          <div class="media">
-            <img src="assets/step1.png" alt="Paso 1: Envío de fotos" loading="lazy" />
           </div>
-          <div class="content">
-            <div class="n">1</div>
-            <b>Nos enviás tus fotos</b>
-            <div class="muted">Celular = perfecto.</div>
+
+          <div class="hero-actions" style="margin-top: 10px;">
+            <a class="btn primary" href="#cta">👉 Análisis y asesoría gratuita</a>
+            <a class="btn ghost" href="#embudo">Ver cómo funciona →</a>
           </div>
+
+          <div class="tiny" style="margin-top: 6px;">✔ Respuesta en menos de 24 hs · ✔ Sin compromiso</div>
         </div>
 
-        <div class="step reveal">
-          <div class="media">
-            <img src="assets/step2.png" alt="Paso 2: Modelos digitales" loading="lazy" />
+        <!-- Pipeline visual -->
+        <div class="pipeline reveal" aria-label="Visual: Foto casera a anuncio">
+          <div class="pipeline-top">
+            <div style="font-weight:900; letter-spacing:-.02em;">Pipeline de conversión</div>
+            <div class="chips">
+              <span class="chip grad">IA</span>
+              <span class="chip">Ads</span>
+              <span class="chip">CRO</span>
+            </div>
           </div>
-          <div class="content">
-            <div class="n">2</div>
-            <b>Modelos digitales</b>
-            <div class="muted">Variantes para testeo.</div>
-          </div>
-        </div>
+          <div class="pipeline-body" id="pipeline">
+            <div class="step active" data-step="0">
+              <div class="thumb" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M4 7a3 3 0 013-3h10a3 3 0 013 3v10a3 3 0 01-3 3H7a3 3 0 01-3-3V7z" stroke="currentColor" stroke-width="2"/><path d="M8 11l2-2 3 3 2-2 3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <h3>1) Foto casera</h3>
+                <p>Tu producto tal cual lo tenés hoy, sin producción.</p>
+              </div>
+            </div>
 
-        <div class="step reveal">
-          <div class="media">
-            <img src="assets/step3.png" alt="Paso 3: Imágenes y videos listos" loading="lazy" />
-          </div>
-          <div class="content">
-            <div class="n">3</div>
-            <b>Creatividades listas</b>
-            <div class="muted">Reels / Ads / Stories.</div>
-          </div>
-        </div>
+            <div class="step" data-step="1">
+              <div class="thumb" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3 5h5l-4 4 2 6-6-3-6 3 2-6-4-4h5l3-5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <h3>2) Modelo digital premium</h3>
+                <p>Escenarios, modelos y estilos listos para campaña.</p>
+              </div>
+            </div>
 
-        <div class="step reveal">
-          <div class="media">
-            <img src="assets/step4.png" alt="Paso 4: Embudo de ventas" loading="lazy" />
-          </div>
-          <div class="content">
-            <div class="n">4</div>
-            <b>Embudo de ventas</b>
-            <div class="muted">Atracción→confianza→compra.</div>
-          </div>
-        </div>
+            <div class="step" data-step="2">
+              <div class="thumb" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4V6z" stroke="currentColor" stroke-width="2"/><path d="M7 10h6M7 13h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <div>
+                <h3>3) Anuncio listo para vender</h3>
+                <p>Creativos + variantes A/B + estructura Ads optimizada.</p>
+              </div>
+            </div>
 
-        <div class="step reveal">
-          <div class="media">
-            <img src="assets/step5.png" alt="Paso 5: Lanzamiento y optimización" loading="lazy" />
-          </div>
-          <div class="content">
-            <div class="n">5</div>
-            <b>Ads + optimización</b>
-            <div class="muted">Test A/B + escalado.</div>
+            <div class="card" style="padding:14px; margin-top:2px;">
+              <div style="display:flex; gap:10px; align-items:flex-start;">
+                <div class="icon" aria-hidden="true" style="width:40px;height:40px;border-radius:14px;">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M12 20V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 20V4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M6 20v-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                </div>
+                <div>
+                  <div style="font-weight:900;">Menos show. Más performance.</div>
+                  <div class="tiny">Diseñamos para testear, medir y mejorar. Eso escala.</div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
+    </section>
 
-      <div class="anchor">Tú enviás fotos. Nosotros construimos ventas.</div>
-    </div>
-  </section>
-
-  <!-- SERVICIOS -->
-  <section class="section" id="servicios">
-    <div class="wrap reveal">
-      <h2>Qué incluye el sistema NEXUS</h2>
-      <p class="lead">Todo en un solo lugar.</p>
-
-      <div class="services" aria-label="Servicios">
-        <div class="svc reveal">
-          <div class="top"><div class="emoji">📸</div>Imágenes</div>
-          <ul>
-            <li>Modelos digitales</li>
-            <li>Estilo coherente</li>
-            <li>Variaciones por producto</li>
-          </ul>
-        </div>
-        <div class="svc reveal">
-          <div class="top"><div class="emoji">🎥</div>Videos</div>
-          <ul>
-            <li>Reels / Ads / Stories</li>
-            <li>Dinámicos</li>
-            <li>Para conversión</li>
-          </ul>
-        </div>
-        <div class="svc reveal">
-          <div class="top"><div class="emoji">📊</div>Embudo</div>
-          <ul>
-            <li>Mensajes por etapa</li>
-            <li>Confianza</li>
-            <li>Compra</li>
-          </ul>
-        </div>
-        <div class="svc reveal">
-          <div class="top"><div class="emoji">📢</div>Facebook Ads</div>
-          <ul>
-            <li>Creatividades optimizadas</li>
-            <li>Test A/B</li>
-            <li>Escalado</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- DIFERENCIADOR -->
-  <section class="section" id="diferenciador">
-    <div class="wrap reveal">
-      <div class="card banner">
-        <div>
-          <h2>No somos solo diseño. Somos performance.</h2>
-          <p class="lead">Reducimos costos de producción y aceleramos el lanzamiento con un sistema replicable.</p>
-          <div class="strong">Lo visual sin estrategia es decoración.</div>
-        </div>
-        <a class="btn primary" href="#cta">👉 Quiero mi análisis gratuito</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- PARA QUIÉN -->
-  <section class="section" id="fit">
-    <div class="wrap two">
-      <div class="box reveal">
-        <h2>Ideal para</h2>
-        <ul>
-          <li>Tiendas online de ropa</li>
-          <li>Marcas que quieren escalar Ads</li>
-          <li>Negocios sin estudio fotográfico</li>
-        </ul>
-      </div>
-      <div class="box reveal">
-        <h2>No es para</h2>
-        <ul>
-          <li>Quien busca solo “diseño bonito”</li>
-          <li>Quien no quiere invertir en crecimiento</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA FINAL -->
-  <section class="section" id="cta">
-    <div class="wrap">
-      <div class="card" style="padding:18px;">
-        <div class="reveal">
-          <h2>¿Listo para convertir tus fotos en ventas?</h2>
-          <p class="lead">Contanos sobre tu marca y te decimos si este sistema es para vos.</p>
+    <!-- Section: Análisis -->
+    <section class="section" id="analisis">
+      <div class="container">
+        <div class="stack reveal">
+          <h2>Análisis estratégico de tu marca</h2>
+          <p>Evaluamos tu marca, producto y anuncios para detectar <strong style="color:var(--text);">oportunidades reales de venta</strong>. Te llevás claridad y próximos pasos.</p>
         </div>
 
-        <form id="leadForm" aria-label="Formulario de análisis gratuito" class="reveal">
-          <label class="sr" for="nombre">Nombre</label>
-          <input class="in" id="nombre" name="nombre" placeholder="Tu nombre" autocomplete="name" required />
+        <div class="divider"></div>
 
-          <label class="sr" for="marca">Marca / Tienda</label>
-          <input class="in" id="marca" name="marca" placeholder="Nombre de tu marca / tienda" required />
+        <div class="grid cols3 stagger" data-stagger>
+          <div class="card">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 4v10l-7 4-7-4V7l7-4z" stroke="currentColor" stroke-width="2"/><path d="M12 12l7-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <h3>Diagnóstico visual</h3>
+            <p>Qué comunica tu marca en los primeros 3 segundos. Lo que no se entiende, no vende.</p>
+          </div>
 
-          <label class="sr" for="whatsapp">WhatsApp</label>
-          <input class="in" id="whatsapp" name="whatsapp" placeholder="WhatsApp (con código de país)" autocomplete="tel" required />
+          <div class="card">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 19V5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4 19h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M8 15l3-3 3 2 5-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3>Análisis de anuncios</h3>
+            <p>Hooks, ángulos, formatos, fatiga creativa y oportunidades de mejora inmediata.</p>
+          </div>
 
-          <label class="sr" for="mensaje">Mensaje</label>
-          <textarea class="in" id="mensaje" name="mensaje" placeholder="¿Qué vendés y qué objetivo tenés con Ads?"></textarea>
+          <div class="card">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4 6a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6z" stroke="currentColor" stroke-width="2"/></svg>
+            </div>
+            <h3>Recomendaciones accionables</h3>
+            <p>Te decimos qué cambiar primero para vender más (priorizado, sin vueltas).</p>
+          </div>
+        </div>
 
-          <button class="btn primary" type="submit">👉 Quiero mi análisis gratuito</button>
-          <div class="fine">Tip: configurá abajo el número de WhatsApp para que el formulario lo abra automáticamente.</div>
-          <div id="formMsg" class="fine" aria-live="polite"></div>
-        </form>
+        <div class="stack reveal" noticing style="margin-top:18px;">
+          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top: 16px;">
+            <a class="btn primary" href="#cta">📞 Llamada + asesoría gratuita</a>
+            <span class="tiny">Te pedimos 4 datos. Te devolvemos un plan.</span>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- FAQ -->
-  <section class="section" id="faq">
-    <div class="wrap reveal">
-      <h2>Preguntas rápidas</h2>
-      <div class="two">
-        <details class="reveal">
-          <summary>¿Necesito fotos profesionales?</summary>
-          <p>No. Trabajamos a partir de tus fotos actuales.</p>
-        </details>
-        <details class="reveal">
-          <summary>¿Cuánto tarda el proceso?</summary>
-          <p>Rápido y escalable (depende de cantidad de productos).</p>
-        </details>
-        <details class="reveal">
-          <summary>¿Trabajan solo con ropa?</summary>
-          <p>Sí. Especialistas en moda.</p>
-        </details>
-        <details class="reveal">
-          <summary>¿Incluye anuncios?</summary>
-          <p>Sí. De principio a fin: creatividades, embudo, test y optimización.</p>
-        </details>
-      </div>
-    </div>
-  </section>
+    <!-- Section: Creativos + Ads -->
+    <section class="section compact" id="creativos">
+      <div class="container">
+        <div class="stack reveal">
+          <h2>Creativos diseñados para vender</h2>
+          <p>No hacemos “lindo”. Diseñamos <strong style="color:var(--text);">para personas y para algoritmos</strong>.</p>
+        </div>
 
-  <footer>
-    <div class="wrap foot">
-      <div style="display:flex;align-items:center;gap:10px;">
-        <div class="logo" aria-hidden="true" style="width:28px;height:28px;border-radius:10px;"></div>
-        <div><b style="color:var(--text);">NEXUS</b><div class="muted" style="font-size:12px;">No prometemos likes, prometemos ventas.</div></div>
+        <div class="divider"></div>
+
+        <div class="grid cols2" style="margin-top: 14px;">
+          <div class="card reveal">
+            <h3>Qué hacemos</h3>
+            <div class="divider"></div>
+            <div class="stack" style="gap:10px;">
+              <div class="bullet">
+                <div class="check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div>
+                  <div style="font-weight:800;">Creación de anuncios</div>
+                  <div class="tiny">UGC, estáticos, reels, carruseles.</div>
+                </div>
+              </div>
+              <div class="bullet">
+                <div class="check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div>
+                  <div style="font-weight:800;">Variaciones para test A/B</div>
+                  <div class="tiny">Hooks, ofertas, claims, formatos.</div>
+                </div>
+              </div>
+              <div class="bullet">
+                <div class="check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div>
+                  <div style="font-weight:800;">Gestión y optimización de Facebook Ads</div>
+                  <div class="tiny">Estructura, presupuesto, aprendizaje y escala.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="divider"></div>
+            <div class="kicker"><span class="kdot" aria-hidden="true"></span><span>Si no se puede testear, no es performance.</span></div>
+          </div>
+
+          <div class="card reveal">
+            <h3>Mockups (estilo SaaS)</h3>
+            <p class="tiny" style="margin-top:6px;">Ejemplo de panel de performance (sin promesas, con lógica de medición).</p>
+            <div class="divider"></div>
+
+            <div class="grid" style="gap:10px;">
+              <div class="card" style="box-shadow:none; padding:14px;">
+                <div style="display:flex; justify-content:space-between; gap:10px; align-items:center;">
+                  <div>
+                    <div style="font-weight:900;">CTR</div>
+                    <div class="tiny">Hook 1 vs Hook 2</div>
+                  </div>
+                  <div class="chip grad">Test A/B</div>
+                </div>
+                <div class="divider"></div>
+                <div class="tiny">Hook 1: ↑ mejor retención · Hook 2: ↓ fatiga creativa</div>
+              </div>
+
+              <div class="card" style="box-shadow:none; padding:14px;">
+                <div style="display:flex; justify-content:space-between; gap:10px; align-items:center;">
+                  <div>
+                    <div style="font-weight:900;">CPA</div>
+                    <div class="tiny">Optimización continua</div>
+                  </div>
+                  <div class="chip">Meta Ads</div>
+                </div>
+                <div class="divider"></div>
+                <div class="tiny">Ajuste de estructura y creativos para estabilizar costos.</div>
+              </div>
+
+              <div class="card" style="box-shadow:none; padding:14px;">
+                <div style="display:flex; justify-content:space-between; gap:10px; align-items:center;">
+                  <div>
+                    <div style="font-weight:900;">ROAS</div>
+                    <div class="tiny">Escala controlada</div>
+                  </div>
+                  <div class="chip">CRO</div>
+                </div>
+                <div class="divider"></div>
+                <div class="tiny">El ROAS mejora cuando el click aterriza en un embudo que convierte.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
-      <div style="display:flex;gap:14px;flex-wrap:wrap;">
-        <a href="#cta">Contacto</a>
-        <a href="#faq">FAQ</a>
-        <a href="#" onclick="alert('Agregá aquí tu URL de política de privacidad.'); return false;">Política de privacidad</a>
+    </section>
+
+    <!-- Section: IA (Before/After) -->
+    <section class="section" id="ia">
+      <div class="container">
+        <div class="stack reveal">
+          <h2>Fotos profesionales con IA, sin producción</h2>
+          <p>Digitalizamos tu producto y lo convertimos en contenido premium listo para campañas.</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="grid cols2" style="align-items:start;">
+          <div class="card reveal">
+            <h3>Por qué esto te diferencia</h3>
+            <div class="divider"></div>
+            <div class="stack" style="gap:10px;">
+              <div class="bullet"><div class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div style="font-weight:800;">Sin estudio</div><div class="tiny">No dependés de producción para generar volumen.</div></div></div>
+              <div class="bullet"><div class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div style="font-weight:800;">Sin modelos</div><div class="tiny">Tu producto se adapta a cualquier perfil.</div></div></div>
+              <div class="bullet"><div class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div style="font-weight:800;">Sin influencers</div><div class="tiny">El contenido no depende de terceros.</div></div></div>
+              <div class="bullet"><div class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div style="font-weight:800;">Costos mínimos</div><div class="tiny">Más variaciones, más tests, más aprendizaje.</div></div></div>
+            </div>
+
+            <div class="divider"></div>
+            <div class="kicker"><span class="kdot" aria-hidden="true"></span><span><strong style="color:var(--text);">Caso real:</strong> IKENA — ropa</span></div>
+            <p class="tiny" style="margin-top:8px;">De foto casera a modelo digital con la misma prenda, listo para Ads.</p>
+
+            <div class="divider"></div>
+            <div style="font-weight:900; font-size:18px; letter-spacing:-.02em;">
+              Tu producto se adapta a cualquier modelo, escenario y campaña.
+            </div>
+          </div>
+
+          <!-- Before/After component -->
+          <div class="ba reveal" aria-label="Antes y después con IA">
+            <div class="ba-head">
+              <div style="font-weight:900;">Antes / Después</div>
+              <div class="chips">
+                <span class="chip">Foto casera</span>
+                <span class="chip grad">Modelo digital</span>
+              </div>
+            </div>
+
+            
+            <div class="ba-stage" id="baStage" role="group" aria-label="Comparador Antes/Después">
+              <div class="ba-layer ba-before" aria-label="Antes">
+                <img class="ba-bg" src="https://i.ibb.co/dFB5r27/antes.png" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+                <img class="ba-img" src="https://i.ibb.co/kjKSx8M/Dise-o-sin-t-tulo-19.png" alt="Antes: foto casera del producto" loading="lazy" decoding="async" />
+              </div>
+
+              <div class="ba-layer ba-after" id="baAfter" aria-label="Después">
+                <img class="ba-bg" src="https://i.ibb.co/39VKH581/despues.png" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+                <img class="ba-img" src="https://i.ibb.co/dwXZys3B/Dise-o-sin-t-tulo-20.png" alt="Después: modelo digital con la prenda" loading="lazy" decoding="async" />
+              </div>
+
+              <div class="ba-handle" id="baHandle" aria-hidden="true"></div>
+              <div class="ba-knob" id="baKnob" role="slider" aria-label="Arrastrar para comparar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M9 7l-4 5 4 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M15 7l4 5-4 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+
+              <div class="ba-caption" aria-hidden="true">
+                <span class="cap-pill">ANTES</span>
+                <span class="cap-pill grad">DESPUÉS</span>
+              </div>
+            </div>
+
+            <div class="ba-controls">
+              <button class="btn small ghost" type="button" data-ba="25">25%</button>
+              <button class="btn small ghost" type="button" data-ba="50">50%</button>
+              <button class="btn small ghost" type="button" data-ba="75">75%</button>
+              <span class="tiny" style="align-self:center;">Arrastrá o tocá para comparar</span>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </footer>
+    </section>
+
+    <!-- Section: Embudo -->
+    <section class="section" id="embudo">
+      <div class="container">
+        <div class="stack reveal">
+          <h2>Embudo completo de ventas</h2>
+          <p>Unimos creatividad, anuncios y landing para que el tráfico no se pierda y la venta suceda.</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="grid cols2" style="align-items:start;">
+          <div class="funnel reveal">
+            <div class="funnel-row">
+              <div class="flow">
+                <div class="flow-step">
+                  <div class="num">1</div>
+                  <div>
+                    <h3>Atracción</h3>
+                    <p>Creativos + Ads que captan atención y generan intención.</p>
+                  </div>
+                </div>
+                <div class="flow-line" aria-hidden="true"></div>
+                <div class="flow-step">
+                  <div class="num">2</div>
+                  <div>
+                    <h3>Confianza</h3>
+                    <p>Mensaje, oferta, objeciones y prueba social en orden.</p>
+                  </div>
+                </div>
+                <div class="flow-line" aria-hidden="true"></div>
+                <div class="flow-step">
+                  <div class="num">3</div>
+                  <div>
+                    <h3>Conversión</h3>
+                    <p>Landing + WhatsApp + seguimiento para cerrar la venta.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="divider"></div>
+              <div class="kicker"><span class="kdot" aria-hidden="true"></span>Tu anuncio no falla. Falla lo que pasa después del click.</div>
+            </div>
+          </div>
+
+          <div class="card reveal">
+            <h3>Incluye</h3>
+            <div class="divider"></div>
+            <div class="stack" style="gap:10px;">
+              <div class="bullet"><div class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div style="font-weight:800;">Landing pages de conversión</div><div class="tiny">Estructura mobile-first y velocidad.</div></div></div>
+              <div class="bullet"><div class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div style="font-weight:800;">Copy estratégico orientado a ventas</div><div class="tiny">Oferta, objeciones, claridad y decisión.</div></div></div>
+              <div class="bullet"><div class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div style="font-weight:800;">Optimización continua</div><div class="tiny">Test A/B + CRO + iteración creativa.</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Differentiator -->
+    <section class="section compact" id="diferenciador">
+      <div class="container">
+        <div class="banner reveal">
+          <h2>Lo visual sin estrategia es decoración.</h2>
+          <p style="margin-top:10px;">
+            Nexus integra creatividad, anuncios y embudos en un <strong style="color:var(--text);">solo sistema escalable</strong>.
+            Menos improvisación. Más performance.
+          </p>
+
+          <div class="divider"></div>
+
+          <div class="grid cols3" style="margin-top: 10px;">
+            <div class="card" style="box-shadow:none;">
+              <div class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M7 7h10v10H7V7z" stroke="currentColor" stroke-width="2"/><path d="M4 4h4M16 4h4M4 20h4M16 20h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <h3>Sistema</h3>
+              <p>Proceso repetible: claridad, testeo, iteración y escala.</p>
+            </div>
+
+            <div class="card" style="box-shadow:none;">
+              <div class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 2v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 18v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4 12H2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M22 12h-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7.5 7.5l-1.5-1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 18l-1.5-1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M16.5 7.5L18 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M6 18l1.5-1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 8a4 4 0 100 8 4 4 0 000-8z" stroke="currentColor" stroke-width="2"/></svg>
+              </div>
+              <h3>Tecnología</h3>
+              <p>IA + automatización + ejecución rápida para producir volumen.</p>
+            </div>
+
+            <div class="card" style="box-shadow:none;">
+              <div class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M6 17l4-4 3 3 5-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 20h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <h3>Performance</h3>
+              <p>Medición real: decisiones por datos, no por gustos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="section" id="cta">
+      <div class="container">
+        <div class="grid cols2" style="align-items:start;">
+          <div class="stack reveal">
+            <h2>¿Listo para convertir tu marca en un sistema de ventas?</h2>
+            <p>Te hacemos un diagnóstico real y te decimos qué cambiar primero para vender más y escalar con estrategia.</p>
+            <div class="divider"></div>
+            <div class="kicker"><span class="kdot" aria-hidden="true"></span>✔ Sin spam · ✔ Contacto humano · ✔ Respuesta en 24 hs</div>
+          </div>
+
+          <div class="card reveal" aria-label="Formulario de análisis gratuito">
+            <h3>👉 Análisis gratuito</h3>
+            <p class="tiny" style="margin-top:6px;">Completá esto y te escribimos por WhatsApp.</p>
+            <div class="divider"></div>
+
+            <form id="leadForm">
+              <div class="field">
+                <label for="nombre">Nombre</label>
+                <input id="nombre" name="nombre" type="text" autocomplete="name" required placeholder="Tu nombre" />
+              </div>
+
+              <div class="field">
+                <label for="marca">Marca / Instagram</label>
+                <input id="marca" name="marca" type="text" autocomplete="organization" required placeholder="@tumarca o sitio web" />
+              </div>
+
+              <div class="field">
+                <label for="whatsapp">WhatsApp</label>
+                <input id="whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" required placeholder="+54 11 1234 5678" />
+              </div>
+
+              <div class="field">
+                <label for="objetivo">Objetivo</label>
+                <select id="objetivo" name="objetivo" required>
+                  <option value="" selected disabled>Elegí una opción</option>
+                  <option>Vender más con Ads</option>
+                  <option>Mejorar creativos</option>
+                  <option>Escalar campañas</option>
+                  <option>Lanzar producto</option>
+                  <option>Armar embudo completo</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="detalle">Detalle (opcional)</label>
+                <textarea id="detalle" name="detalle" placeholder="Contanos brevemente qué vendés y tu situación actual..."></textarea>
+              </div>
+
+              <button class="btn primary" type="submit" id="submitBtn">Quiero mi análisis</button>
+              <div class="note" id="formNote">No spam. Te contactamos una sola vez.</div>
+            </form>
+          </div>
+        </div>
+
+        <div class="divider" style="margin-top: 26px;"></div>
+
+        <footer class="tiny" style="padding-bottom: 60px;">
+          © <span id="year"></span> NEXUS. Todos los derechos reservados. · <a href="#top" class="tiny" style="color:rgba(245,247,255,.75);">Volver arriba</a>
+        </footer>
+      </div>
+    </section>
+  </main>
+
+  <!-- Sticky mobile CTA -->
+  <div class="sticky-cta" aria-label="Acción rápida">
+    <a class="btn primary" href="#cta">👉 Análisis gratis</a>
+    <a class="btn" href="https://wa.me/" target="_blank" rel="noopener" style="flex:0 0 auto;">WhatsApp</a>
+  </div>
 
   <script>
-    // ✅ Animaciones al hacer scroll (IntersectionObserver)
-    (function(){
-      const els = document.querySelectorAll('.reveal');
-      const io = new IntersectionObserver((entries)=>{
-        entries.forEach(e=>{
-          if(e.isIntersecting){
-            e.target.classList.add('is-visible');
-            io.unobserve(e.target);
-          }
-        });
-      }, {threshold: 0.12});
-      els.forEach(el=>io.observe(el));
-    })();
+    // Smooth anchor scrolling (native + offset handled by scroll-margin-top)
+    document.documentElement.style.scrollBehavior = "smooth";
 
-    // ✅ Formulario: abre WhatsApp con el texto (reemplazá el número).
-    (function(){
-      const form = document.getElementById('leadForm');
-      const msg  = document.getElementById('formMsg');
+    // Footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-      // 🔧 CONFIGURACIÓN
-      const WHATSAPP_NUMBER = ""; // Ej: "5491122334455" (sin + ni espacios). Si queda vacío, copia al portapapeles.
-      const FALLBACK_EMAIL  = ""; // Ej: "hola@tumarca.com" (opcional)
-
-      form.addEventListener('submit', function(e){
-        e.preventDefault();
-        const data = new FormData(form);
-        const nombre = (data.get('nombre') || '').toString().trim();
-        const marca = (data.get('marca') || '').toString().trim();
-        const whatsapp = (data.get('whatsapp') || '').toString().trim();
-        const mensaje = (data.get('mensaje') || '').toString().trim();
-
-        const text =
-`Hola, quiero mi análisis gratuito con NEXUS.
-Nombre: ${nombre}
-Marca: ${marca}
-WhatsApp: ${whatsapp}
-Mensaje: ${mensaje || '-'}
-`;
-
-        if(WHATSAPP_NUMBER){
-          const url = "https://wa.me/" + encodeURIComponent(WHATSAPP_NUMBER) + "?text=" + encodeURIComponent(text);
-          window.open(url, "_blank", "noopener,noreferrer");
-          msg.textContent = "Listo: abrimos WhatsApp para enviarlo.";
-          return;
-        }
-
-        if(FALLBACK_EMAIL){
-          const subject = encodeURIComponent("Nuevo lead - Análisis gratuito NEXUS");
-          const body = encodeURIComponent(text);
-          window.location.href = `mailto:${FALLBACK_EMAIL}?subject=${subject}&body=${body}`;
-          msg.textContent = "Listo: abrimos tu email para enviarlo.";
-          return;
-        }
-
-        try{
-          navigator.clipboard.writeText(text);
-          msg.textContent = "Copiado al portapapeles. Pegalo en WhatsApp o en tu CRM.";
-        }catch(err){
-          msg.textContent = "Formulario listo. Configurá WHATSAPP_NUMBER o FALLBACK_EMAIL en el código para enviar.";
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add("in");
+          if (e.target.hasAttribute("data-stagger")) e.target.classList.add("in");
+          io.unobserve(e.target);
         }
       });
+    }, { threshold: 0.16 });
+
+    document.querySelectorAll(".reveal, [data-stagger]").forEach(el => io.observe(el));
+
+    // Pipeline autoplay highlight
+    (function pipelineAutoplay(){
+      const steps = Array.from(document.querySelectorAll("#pipeline .step"));
+      if (!steps.length) return;
+      let i = 0;
+      setInterval(() => {
+        steps.forEach(s => s.classList.remove("active"));
+        steps[i].classList.add("active");
+        i = (i + 1) % steps.length;
+      }, 2400);
     })();
+
+    // Before/After slider (improved, pointer events)
+    (function beforeAfter(){
+      const stage = document.getElementById("baStage");
+      const after = document.getElementById("baAfter");
+      const handle = document.getElementById("baHandle");
+      const knob = document.getElementById("baKnob");
+      if (!stage || !after || !handle || !knob) return;
+
+      let pct = 50;
+      let dragging = false;
+
+      const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+
+      const setPct = (p) => {
+        pct = clamp(p, 0, 100);
+        stage.style.setProperty("--pct", pct + "%");
+        knob.setAttribute("aria-valuenow", String(Math.round(pct)));
+      };
+
+      const pctFromClientX = (clientX) => {
+        const r = stage.getBoundingClientRect();
+        return ((clientX - r.left) / r.width) * 100;
+      };
+
+      // Click/tap on stage to jump
+      stage.addEventListener("pointerdown", (e) => {
+        // Only jump when tapping stage background (not when starting on knob)
+        if (e.target === knob) return;
+        setPct(pctFromClientX(e.clientX));
+      });
+
+      // Drag on knob (pointer events)
+      knob.addEventListener("pointerdown", (e) => {
+        e.preventDefault();
+        dragging = true;
+        knob.setPointerCapture(e.pointerId);
+        setPct(pctFromClientX(e.clientX));
+      });
+
+      knob.addEventListener("pointermove", (e) => {
+        if (!dragging) return;
+        setPct(pctFromClientX(e.clientX));
+      });
+
+      const endDrag = (e) => {
+        dragging = false;
+        try { knob.releasePointerCapture(e.pointerId); } catch(_) {}
+      };
+      knob.addEventListener("pointerup", endDrag);
+      knob.addEventListener("pointercancel", endDrag);
+
+      // Keyboard
+      knob.addEventListener("keydown", (e) => {
+        const step = (e.shiftKey ? 10 : 3);
+        if (e.key === "ArrowLeft") { e.preventDefault(); setPct(pct - step); }
+        if (e.key === "ArrowRight") { e.preventDefault(); setPct(pct + step); }
+      });
+
+      // Presets
+      document.querySelectorAll("[data-ba]").forEach(btn => {
+        btn.addEventListener("click", () => setPct(parseFloat(btn.getAttribute("data-ba"))));
+      });
+
+      // Keep correct after resize/orientation change
+      window.addEventListener("resize", () => setPct(pct), { passive:true });
+
+      setPct(50);
+    })();
+// Form submission (demo): opens WhatsApp with prefilled message.
+    // Replace WA_NUMBER with your real number in international format, e.g. 5491112345678
+    const WA_NUMBER = "5490000000000";
+
+    document.getElementById("leadForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const data = new FormData(e.target);
+      const nombre = (data.get("nombre") || "").toString().trim();
+      const marca = (data.get("marca") || "").toString().trim();
+      const whatsapp = (data.get("whatsapp") || "").toString().trim();
+      const objetivo = (data.get("objetivo") || "").toString().trim();
+      const detalle = (data.get("detalle") || "").toString().trim();
+
+      const note = document.getElementById("formNote");
+      const btn = document.getElementById("submitBtn");
+
+      if (!nombre || !marca || !whatsapp || !objetivo) {
+        note.textContent = "Completá los campos obligatorios.";
+        note.style.color = "rgba(255,77,0,.95)";
+        return;
+      }
+
+      btn.textContent = "Enviando…";
+      btn.disabled = true;
+
+      const msg =
+`Hola NEXUS, quiero el análisis gratuito.
+Nombre: ${nombre}
+Marca/IG: ${marca}
+WhatsApp: ${whatsapp}
+Objetivo: ${objetivo}
+Detalle: ${detalle || "—"}`;
+
+      const url = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(msg);
+      window.open(url, "_blank", "noopener");
+
+      note.textContent = "Listo. Se abrió WhatsApp con tu solicitud.";
+      note.style.color = "rgba(245,247,255,.85)";
+      btn.textContent = "Quiero mi análisis";
+      btn.disabled = false;
+
+      // Optional: reset
+      // e.target.reset();
+    });
   </script>
 </body>
 </html>
